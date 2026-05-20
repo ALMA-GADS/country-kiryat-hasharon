@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hero B — Editorial Summer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;700;800;900&family=Assistant:wght@300;400;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { font-family:'Assistant',sans-serif; background:#F8F4ED; color:#0E2A47; min-height:100vh; }
+
+  .stage { min-height:100vh; padding:24px; display:flex; align-items:center; justify-content:center; background:#FFF8E8; }
+  .card { width:min(1200px,100%); background:#fff; border-radius:40px; overflow:hidden; box-shadow:0 30px 80px rgba(14,42,71,0.15); position:relative; }
+
+  .hero { display:grid; grid-template-columns:1.05fr 1fr; min-height:680px; }
+  @media (max-width:880px){ .hero { grid-template-columns:1fr; } }
+
+  .left { padding:56px 48px; position:relative; background:#fff; }
+  .top-row { display:flex; align-items:center; gap:14px; margin-bottom:34px; }
+  .logo { width:54px; height:54px; border-radius:50%; background:linear-gradient(135deg,#4FC3E8,#4CB050); display:flex; align-items:center; justify-content:center; font-family:'Heebo'; font-weight:900; color:#fff; font-size:18px; }
+  .brand { font-family:'Heebo'; font-weight:800; font-size:15px; color:#0E2A47; }
+  .brand small { display:block; font-size:12px; font-weight:600; color:#446B91; }
+
+  .eyebrow { display:inline-flex; align-items:center; gap:8px; background:#FFC72C; color:#0E2A47; padding:7px 14px; border-radius:99px; font-family:'Heebo'; font-weight:800; font-size:12px; letter-spacing:1px; margin-bottom:22px; }
+  .eyebrow .dot { width:6px; height:6px; border-radius:50%; background:#0E2A47; }
+
+  h1 { font-family:'Heebo'; font-weight:900; line-height:0.95; letter-spacing:-1.5px; color:#0E2A47; font-size:clamp(50px,8vw,96px); margin-bottom:14px; }
+  h1 .yellow { background:linear-gradient(180deg,transparent 60%,#FFC72C 60%); padding:0 4px; }
+  h1 em { font-style:normal; font-family:'Heebo'; font-weight:300; color:#446B91; display:block; font-size:0.5em; letter-spacing:0; margin-top:8px; }
+
+  .lede { color:#3A5876; font-size:18px; line-height:1.55; max-width:480px; margin-bottom:28px; }
+  .lede strong { color:#0E2A47; }
+
+  .date-box { display:flex; gap:0; border-radius:18px; overflow:hidden; box-shadow:0 14px 30px rgba(14,42,71,0.18); margin-bottom:30px; max-width:380px; }
+  .date-box .left-d { background:#0E2A47; color:#fff; padding:14px 22px; font-family:'Heebo'; font-weight:900; text-align:center; min-width:100px; }
+  .date-box .left-d .day { font-size:32px; line-height:1; }
+  .date-box .left-d .month { font-size:13px; opacity:0.85; margin-top:4px; letter-spacing:1px; }
+  .date-box .right-d { background:#FFC72C; color:#0E2A47; padding:14px 22px; font-family:'Heebo'; font-weight:800; font-size:16px; flex:1; display:flex; align-items:center; }
+
+  .cta-row { display:flex; gap:14px; align-items:center; flex-wrap:wrap; }
+  .cta { background:#0E2A47; color:#fff; font-family:'Heebo'; font-weight:800; font-size:18px; padding:18px 32px; border-radius:14px; border:none; cursor:pointer; text-decoration:none; display:inline-flex; align-items:center; gap:8px; transition:transform 0.2s ease; }
+  .cta:hover { transform:translateY(-2px); }
+  .cta-second { color:#0E2A47; font-family:'Heebo'; font-weight:700; font-size:14px; text-decoration:underline; text-decoration-color:#FFC72C; text-decoration-thickness:3px; text-underline-offset:5px; }
+
+  .right { position:relative; background:url('/images/sketch-hero-photo.svg') center/cover; overflow:hidden; }
+  .right::before { content:''; position:absolute; inset:0; background:linear-gradient(135deg, rgba(79,195,232,0.15), rgba(255,199,44,0.15)); }
+
+  .price-card { position:absolute; bottom:32px; right:32px; left:32px; background:rgba(255,255,255,0.95); backdrop-filter:blur(10px); border-radius:24px; padding:24px; box-shadow:0 14px 30px rgba(14,42,71,0.2); }
+  .price-card .label { font-family:'Heebo'; font-weight:700; font-size:12px; color:#446B91; letter-spacing:1.5px; margin-bottom:8px; }
+  .price-row { display:flex; align-items:baseline; gap:14px; margin-bottom:6px; }
+  .price-new { font-family:'Heebo'; font-weight:900; font-size:48px; color:#0E2A47; line-height:1; }
+  .price-old { font-family:'Heebo'; font-weight:700; font-size:18px; color:#9AAABE; text-decoration:line-through; }
+  .price-meta { font-size:13px; color:#3A5876; }
+  .price-meta strong { color:#0E2A47; }
+
+  .corner-tag { position:absolute; top:24px; right:24px; background:#FFC72C; color:#0E2A47; padding:10px 16px; border-radius:99px; font-family:'Heebo'; font-weight:900; font-size:13px; letter-spacing:1px; box-shadow:0 8px 20px rgba(255,199,44,0.5); }
+
+  .stamp { position:absolute; top:30px; left:30px; background:#fff; padding:14px 16px; border-radius:50%; font-family:'Heebo'; font-weight:900; font-size:13px; line-height:1.1; text-align:center; width:88px; height:88px; display:flex; flex-direction:column; align-items:center; justify-content:center; box-shadow:0 8px 20px rgba(14,42,71,0.2); border:3px dashed #FFC72C; color:#0E2A47; }
+  .stamp small { font-size:10px; opacity:0.7; }
+
+  .label-bottom { position:absolute; bottom:16px; right:16px; font-size:11px; color:#0E2A47; opacity:0.5; font-family:'Heebo'; font-weight:700; letter-spacing:1px; }
+</style>
+</head>
+<body>
+<div class="stage">
+  <div class="card">
+    <div class="hero">
+      <div class="left">
+        <div class="top-row">
+          <div class="logo">CKH</div>
+          <div class="brand">קאנטרי קריית השרון<small>מועדון הספורט של השכונה · מאז 2010</small></div>
+        </div>
+
+        <span class="eyebrow"><span class="dot"></span>פתיחת מכירות קיץ</span>
+
+        <h1>
+          <span class="yellow">יריד המכירות</span><br>
+          של הקיץ
+          <em>הרשמה מוקדמת לפני עליית המחירים</em>
+        </h1>
+
+        <p class="lede">
+          3 חודשי מנוי קיץ בקאנטרי — בריכה חצי אולימפית, מכון כושר, סאונה,
+          חוגי סטודיו ופעוטות. <strong>פתוח גם בשבת.</strong>
+        </p>
+
+        <div class="date-box">
+          <div class="left-d"><div class="day">28</div><div class="month">מאי</div></div>
+          <div class="right-d">📅 יום חמישי — יום הפתיחה</div>
+        </div>
+
+        <div class="cta-row">
+          <a class="cta" href="#">השאירו פרטים →</a>
+          <a class="cta-second" href="#">או חייגו 09-000-0000</a>
+        </div>
+      </div>
+
+      <div class="right">
+        <div class="corner-tag">⚡ 80 מקומות בלבד</div>
+        <div class="stamp">המנוי כולל<br><small>שבת</small></div>
+
+        <div class="price-card">
+          <div class="label">מחיר ליום הפתיחה</div>
+          <div class="price-row">
+            <span class="price-new">1,790<span style="font-size:18px; font-weight:700; color:#446B91; margin-right:6px;">ש״ח</span></span>
+            <span class="price-old">2,400 ש״ח</span>
+          </div>
+          <div class="price-meta">3 חודשי מנוי קיץ · <strong>חיסכון 610 ש״ח</strong></div>
+        </div>
+      </div>
+    </div>
+    <div class="label-bottom">SKETCH B — EDITORIAL SUMMER</div>
+  </div>
+</div>
+</body>
+</html>

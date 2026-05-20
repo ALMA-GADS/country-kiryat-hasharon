@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דף נחיתה מלא — קאנטרי קריית השרון</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0E2A47;
+    --navy-light:#1B4470;
+    --navy-text:#3A5876;
+    --navy-soft:#5A7894;
+    --yellow:#FFC72C;
+    --yellow-dark:#F0A91A;
+    --yellow-soft:#FFE89E;
+    --cyan:#4FC3E8;
+    --cyan-light:#9FE0F2;
+    --cyan-pale:#E8F4FA;
+    --green:#4CB050;
+    --cream:#FFF8E8;
+    --paper:#FFFFFF;
+    --line:#E6EAF0;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Assistant','Heebo',sans-serif;background:var(--paper);color:var(--navy);line-height:1.5;overflow-x:hidden}
+  .heebo{font-family:'Heebo',sans-serif}
+  img,svg{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  /* ---------- STICKY BAR ---------- */
+  .sticky{position:sticky;top:0;background:var(--navy);color:#fff;padding:10px 24px;display:flex;align-items:center;justify-content:space-between;gap:12px;z-index:50;box-shadow:0 4px 20px rgba(14,42,71,0.2)}
+  .sticky .left{display:flex;align-items:center;gap:10px;min-width:0}
+  .sticky .badge{background:var(--yellow);color:var(--navy);padding:4px 10px;border-radius:99px;font-weight:900;font-size:11px;letter-spacing:0.5px}
+  .sticky .info{font-weight:700;font-size:13px;opacity:0.9}
+  .sticky .cta{background:var(--yellow);color:var(--navy);padding:9px 18px;border-radius:10px;font-family:'Heebo';font-weight:900;font-size:13px;white-space:nowrap}
+
+  /* ---------- SECTION BASICS ---------- */
+  section{padding:90px 24px;position:relative;overflow:hidden}
+  .container{max-width:1180px;margin:0 auto;position:relative;z-index:2}
+  .container-narrow{max-width:880px;margin:0 auto;position:relative;z-index:2}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--yellow);color:var(--navy);padding:7px 14px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:12px;letter-spacing:1.5px}
+  .eyebrow.dark{background:var(--navy);color:var(--yellow)}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+  h2.section-h{font-family:'Heebo';font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1.04;letter-spacing:-1.5px;color:var(--navy);margin:14px 0 12px}
+  h2.section-h .accent{position:relative;display:inline-block;padding:0 6px}
+  h2.section-h .accent::before{content:'';position:absolute;inset:auto -4px 8px -4px;height:28%;background:var(--yellow);z-index:-1;border-radius:4px;transform:skew(-6deg)}
+  p.section-sub{font-size:18px;color:var(--navy-text);max-width:620px;margin:0 auto}
+  .section-head{text-align:center;margin-bottom:54px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:32px 24px 90px;background:#FFFFFF;position:relative;isolation:isolate}
+  /* תמונה ראשית עם FADE — נטענת מ-/images/hero.jpg, fallback ל-SVG placeholder */
+  .hero-photo{position:absolute;top:0;left:0;right:0;height:680px;z-index:-1;background-image:url('/images/hero.png'),url('/images/sketch-hero-photo.svg');background-size:cover;background-position:center 30%;background-repeat:no-repeat}
+  /* שכבת FADE — מעלימה את התמונה בהדרגה למעלה ולמטה */
+  .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg, rgba(255,255,255,0.55) 0%, rgba(255,255,255,0.15) 25%, rgba(255,255,255,0.35) 55%, rgba(255,255,255,0.85) 80%, #FFFFFF 100%)}
+  /* גלוו צבעוני עדין מאחורי הכותרת */
+  .hero::before{content:'';position:absolute;top:200px;left:50%;transform:translateX(-50%);width:900px;height:500px;background:radial-gradient(ellipse,var(--cyan-pale) 0%,transparent 70%);opacity:0.7;z-index:-1;pointer-events:none}
+  .hero-leaf{position:absolute;top:-20px;width:200px;opacity:0.4;pointer-events:none}
+  .hero-leaf.l{right:-20px;transform:rotate(-20deg)}
+  .hero-leaf.r{left:-20px;transform:rotate(20deg) scaleX(-1)}
+  .hero-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;position:relative;z-index:3}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-logo{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--green));display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Heebo';font-weight:900;font-size:18px;box-shadow:0 8px 20px rgba(79,195,232,0.35)}
+  .brand-text{font-family:'Heebo';font-weight:900;font-size:16px;color:var(--navy)}
+  .brand-text small{display:block;font-size:11px;font-weight:600;color:var(--navy-soft)}
+  .nav-pills{display:flex;gap:8px;flex-wrap:wrap}
+  .nav-pill{background:rgba(255,255,255,0.85);backdrop-filter:blur(8px);border:1px solid var(--line);padding:8px 14px;border-radius:99px;font-family:'Heebo';font-weight:800;font-size:12px;color:var(--navy);display:inline-flex;gap:6px;align-items:center}
+  .nav-pill .pdot{width:6px;height:6px;border-radius:50%;background:var(--green)}
+
+  .hero-center{text-align:center;max-width:880px;margin:0 auto;position:relative;z-index:3}
+  .kicker{display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:var(--yellow);padding:10px 22px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:13px;letter-spacing:1.5px;margin-bottom:24px;box-shadow:0 12px 28px rgba(14,42,71,0.2)}
+  h1.hero-h{font-family:'Heebo';font-weight:900;line-height:0.9;letter-spacing:-2.5px;color:var(--navy);margin-bottom:18px}
+  h1.hero-h .row-top{font-size:clamp(42px,7vw,80px);display:block}
+  h1.hero-h .row-mega{font-size:clamp(80px,15vw,170px);display:block;line-height:0.85;margin:8px 0;color:var(--navy);position:relative}
+  h1.hero-h .row-mega .swoosh{position:relative;display:inline-block;padding:0 16px}
+  h1.hero-h .row-mega .swoosh::before{content:'';position:absolute;inset:auto -8px 4px -8px;height:35%;background:var(--yellow);z-index:-1;transform:skew(-8deg);border-radius:6px}
+  h1.hero-h .row-bot{font-size:clamp(34px,6vw,58px);display:block}
+
+  .hero-lede{font-size:19px;color:var(--navy-text);max-width:580px;margin:18px auto 28px}
+  .hero-lede strong{color:var(--navy)}
+
+  .info-bar{display:inline-flex;gap:18px;align-items:center;background:var(--navy);color:#fff;padding:16px 26px;border-radius:18px;font-family:'Heebo';font-weight:800;font-size:15px;margin-bottom:28px;box-shadow:0 14px 30px rgba(14,42,71,0.3);flex-wrap:wrap;justify-content:center}
+  .info-bar .sep{width:1px;height:18px;background:rgba(255,255,255,0.25)}
+  .info-bar .accent{color:var(--yellow)}
+
+  .countdown{display:inline-flex;gap:10px;justify-content:center;margin-bottom:28px}
+  .cd-box{background:#fff;border:1px solid var(--line);box-shadow:0 8px 20px rgba(14,42,71,0.08);padding:12px 18px;border-radius:16px;min-width:72px;text-align:center}
+  .cd-box .num{font-family:'Heebo';font-weight:900;font-size:32px;color:var(--navy);line-height:1}
+  .cd-box .lbl{font-size:11px;color:var(--navy-soft);margin-top:4px;font-weight:700}
+
+  .cta-primary{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(180deg,var(--yellow),var(--yellow-dark));color:var(--navy);font-family:'Heebo';font-weight:900;font-size:22px;padding:22px 50px;border-radius:18px;border:none;cursor:pointer;box-shadow:0 18px 40px rgba(240,169,26,0.5);transition:transform 0.2s ease}
+  .cta-primary:hover{transform:translateY(-3px)}
+  .cta-sub{display:block;margin-top:14px;color:var(--navy);font-weight:700;font-size:13px;opacity:0.7}
+
+  /* ---------- SOCIAL PROOF ---------- */
+  .social{background:var(--cream)}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+  @media (max-width:760px){.stats-grid{grid-template-columns:1fr}}
+  .stat-card{background:var(--paper);border-radius:24px;padding:32px 24px;text-align:center;box-shadow:0 10px 30px rgba(14,42,71,0.06);border:1px solid var(--line);position:relative;overflow:hidden}
+  .stat-card .icbox{width:56px;height:56px;border-radius:18px;background:var(--cyan-pale);color:var(--cyan);display:inline-flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+  .stat-card .num{font-family:'Heebo';font-weight:900;font-size:48px;color:var(--navy);line-height:1}
+  .stat-card .lbl{font-family:'Heebo';font-weight:800;font-size:16px;color:var(--navy);margin-top:8px}
+  .stat-card .sub{font-size:13px;color:var(--navy-soft);margin-top:4px}
+  .stat-card.alt .icbox{background:#FFF8E1;color:var(--yellow-dark)}
+  .stat-card.alt2 .icbox{background:#E8F5E9;color:var(--green)}
+
+  /* ---------- VOSS ---------- */
+  .voss{background:var(--paper)}
+  .voss-list{display:grid;gap:16px;margin-top:36px}
+  .voss-q{background:linear-gradient(135deg,var(--paper),var(--cyan-pale));border:1px solid var(--line);border-right:5px solid var(--cyan);border-radius:20px;padding:24px 28px;display:flex;align-items:center;gap:20px;box-shadow:0 6px 18px rgba(14,42,71,0.05)}
+  .voss-q.alt{background:linear-gradient(135deg,var(--paper),#FFF8E1);border-right-color:var(--yellow)}
+  .voss-q .ic{width:54px;height:54px;border-radius:14px;background:var(--paper);box-shadow:0 4px 14px rgba(14,42,71,0.08);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto}
+  .voss-q p{font-family:'Heebo';font-weight:800;font-size:clamp(17px,2.4vw,22px);color:var(--navy);line-height:1.35}
+  .voss-foot{text-align:center;margin-top:24px;color:var(--navy-text);font-size:15px}
+  .voss-foot .em{color:var(--yellow-dark);font-weight:900}
+
+  /* ---------- GALLERY ---------- */
+  .gallery{background:var(--cyan-pale)}
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;grid-auto-rows:240px;margin-top:36px}
+  @media (max-width:920px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.gallery-grid{grid-template-columns:1fr}}
+  .gal-cell{position:relative;border-radius:24px;overflow:hidden;box-shadow:0 12px 28px rgba(14,42,71,0.12);background:linear-gradient(135deg,var(--navy),var(--cyan))}
+  .gal-cell.big{grid-column:span 2;grid-row:span 2}
+  .gal-cell.wide{grid-column:span 2}
+  @media (max-width:920px){.gal-cell.big{grid-row:span 1}}
+  @media (max-width:560px){.gal-cell.big,.gal-cell.wide{grid-column:span 1}}
+  .gal-cell .bg{position:absolute;inset:0;background:linear-gradient(135deg,var(--navy-light),var(--cyan));display:flex;align-items:center;justify-content:center;color:#fff;font-size:48px;opacity:0.9;background-size:cover;background-position:center}
+  .gal-cell.img1 .bg{background-image:url('/images/pool-main.png'),linear-gradient(135deg,var(--navy-light),var(--cyan))}
+  .gal-cell.img2 .bg{background-image:url('/images/gym.png'),linear-gradient(135deg,var(--navy-light),var(--cyan))}
+  .gal-cell.img4 .bg{background-image:url('/images/studio.png'),linear-gradient(135deg,var(--green),var(--cyan))}
+  .gal-cell.img5 .bg{background-image:url('/images/kids-pool.png'),linear-gradient(135deg,var(--cyan),var(--cyan-light))}
+  .gal-cell.img6 .bg{background-image:url('/images/kids-activities.png'),linear-gradient(135deg,var(--yellow-dark),var(--yellow-soft))}
+  .gal-cell.img7 .bg{background-image:url('/images/cafeteria.png'),linear-gradient(135deg,var(--yellow-dark),#8B6914)}
+  .gal-cell.img8 .bg{background-image:url('/images/outdoor.png'),linear-gradient(135deg,#1E8449,#0E5B2C)}
+  .gal-cell .bg .emoji{font-size:64px;opacity:0.3}
+  .gal-cell .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(14,42,71,0.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;color:#fff}
+  .gal-cell h3{font-family:'Heebo';font-weight:900;font-size:20px;margin-bottom:6px}
+  .gal-cell p{font-size:13px;opacity:0.9;line-height:1.45}
+  .gal-cell .pin{position:absolute;top:14px;right:14px;background:var(--yellow);color:var(--navy);padding:4px 10px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:11px}
+
+  /* ---------- COMPARISON ---------- */
+  .compare{background:var(--paper)}
+  .compare-table{margin-top:36px;border-radius:24px;overflow:hidden;border:1px solid var(--line);background:var(--paper);box-shadow:0 12px 28px rgba(14,42,71,0.08)}
+  .compare-table table{width:100%;border-collapse:collapse}
+  .compare-table th,.compare-table td{padding:16px 12px;text-align:center;font-size:14px;border-bottom:1px solid var(--line)}
+  .compare-table th{background:var(--cream);font-family:'Heebo';font-weight:900;color:var(--navy)}
+  .compare-table td:first-child,.compare-table th:first-child{text-align:right;padding-right:24px;font-weight:700;color:var(--navy)}
+  .compare-table .us-col{background:linear-gradient(180deg,#FFF8E1,#FFFDF5);color:var(--navy);font-weight:900}
+  .compare-table .us-col-h{background:var(--navy);color:var(--yellow);position:relative}
+  .compare-table .us-col-h::before{content:'★ אנחנו';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--yellow);color:var(--navy);padding:3px 12px;border-radius:99px;font-size:10px;font-weight:900;white-space:nowrap}
+  .check{color:var(--green);font-weight:900;font-size:18px}
+  .xx{color:#C2CCDA;font-size:18px}
+  .qq{color:var(--navy-soft);font-size:16px}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi{background:var(--cream)}
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  @media (max-width:920px){.testi-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.testi-grid{grid-template-columns:1fr}}
+  .testi-card{background:var(--paper);border-radius:22px;padding:26px;box-shadow:0 10px 28px rgba(14,42,71,0.08);border:1px solid var(--line);position:relative}
+  .testi-card.offset{transform:translateY(20px)}
+  @media (max-width:920px){.testi-card.offset{transform:none}}
+  .testi-quote{font-size:32px;line-height:1;color:var(--yellow);font-family:'Heebo';font-weight:900;margin-bottom:4px}
+  .testi-stars{color:var(--yellow);font-size:14px;letter-spacing:2px;margin-bottom:12px}
+  .testi-card p{color:var(--navy-text);font-size:14.5px;line-height:1.6;margin-bottom:18px}
+  .testi-author{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--line)}
+  .testi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--cyan),var(--green));color:#fff;display:flex;align-items:center;justify-content:center;font-family:'Heebo';font-weight:900}
+  .testi-name{font-family:'Heebo';font-weight:800;color:var(--navy);font-size:14px}
+  .testi-role{font-size:12px;color:var(--navy-soft)}
+
+  /* ---------- GUILT ---------- */
+  .guilt{background:linear-gradient(135deg,#FFF8E8,#E8F4FA);text-align:center;padding:90px 24px}
+  .guilt h2{font-family:'Heebo';font-weight:900;font-size:clamp(34px,5.5vw,52px);line-height:1.1;color:var(--navy);margin-bottom:20px}
+  .guilt h2 em{font-style:normal;display:block;color:var(--yellow-dark);font-size:1.2em;margin-top:8px}
+  .guilt p{font-size:18px;color:var(--navy-text);max-width:600px;margin:0 auto 12px}
+  .guilt .em{color:var(--navy);font-weight:900;font-family:'Heebo';margin-top:16px;font-size:20px}
+
+  /* ---------- PRICING ---------- */
+  .pricing{background:var(--paper)}
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+  @media (max-width:760px){.price-grid{grid-template-columns:1fr}}
+  .price-card{border-radius:28px;padding:36px 28px;position:relative;border:1px solid var(--line);background:var(--paper)}
+  .price-card.regular{opacity:0.65}
+  .price-card.regular .num{text-decoration:line-through;color:var(--navy-soft)}
+  .price-card.vip{background:linear-gradient(180deg,var(--navy),#15406E);color:#fff;border:none;box-shadow:0 24px 50px rgba(14,42,71,0.25);position:relative;overflow:hidden}
+  .price-card.vip::before{content:'';position:absolute;top:-80px;right:-60px;width:240px;height:240px;background:radial-gradient(circle,var(--yellow) 0%,transparent 70%);opacity:0.25;pointer-events:none}
+  .price-card.vip .label{color:var(--yellow)}
+  .price-card .label{font-family:'Heebo';font-weight:900;font-size:13px;letter-spacing:1.5px;color:var(--navy-soft);margin-bottom:10px}
+  .price-card .pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap}
+  .price-card .pill-y{background:var(--yellow);color:var(--navy);padding:5px 12px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:11px}
+  .price-card .pill-w{background:rgba(255,255,255,0.15);color:#fff;padding:5px 12px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:11px}
+  .price-card .num-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px}
+  .price-card .num{font-family:'Heebo';font-weight:900;font-size:64px;line-height:1}
+  .price-card.vip .num{color:var(--yellow)}
+  .price-card .nis{font-size:18px;font-weight:700;opacity:0.7}
+  .price-card .saving{color:var(--green);font-family:'Heebo';font-weight:900;font-size:14px;margin-bottom:24px;display:block}
+  .price-card.vip .saving{color:var(--yellow)}
+  .price-card ul{list-style:none;margin-bottom:24px}
+  .price-card li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:14.5px}
+  .price-card li::before{content:'✓';color:var(--green);font-weight:900;flex:0 0 18px}
+  .price-card.regular li{color:var(--navy-soft);text-decoration:line-through}
+  .price-card.regular li::before{color:#BFCAD8}
+  .price-card.vip li{color:#fff}
+  .price-card.vip li::before{color:var(--yellow)}
+  .price-card .cta-card{display:block;text-align:center;width:100%;background:var(--yellow);color:var(--navy);font-family:'Heebo';font-weight:900;font-size:17px;padding:16px;border-radius:14px;border:none;cursor:pointer}
+  .price-card.regular .cta-card{background:#E6EAF0;color:var(--navy-soft);cursor:not-allowed}
+
+  /* ---------- SAVINGS CALC ---------- */
+  .savings{background:var(--cream)}
+  .savings-box{background:var(--paper);border-radius:28px;padding:36px;margin-top:30px;border:1px solid var(--line);box-shadow:0 14px 30px rgba(14,42,71,0.08)}
+  .savings-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .savings-row .l{font-size:14px;color:var(--navy-soft);font-weight:800;font-family:'Heebo'}
+  .savings-row .r{font-family:'Heebo';font-weight:900;font-size:24px;color:var(--navy)}
+  .slider{width:100%;height:10px;background:linear-gradient(90deg,var(--cyan),var(--yellow));border-radius:99px;position:relative;margin-bottom:8px}
+  .slider .thumb{position:absolute;top:50%;right:35%;transform:translate(50%,-50%);width:28px;height:28px;border-radius:50%;background:#fff;border:4px solid var(--cyan);box-shadow:0 4px 14px rgba(79,195,232,0.5)}
+  .slider-ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--navy-soft);margin-bottom:24px;direction:ltr}
+  .savings-result{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+  @media (max-width:560px){.savings-result{grid-template-columns:1fr}}
+  .sav-card{background:var(--cyan-pale);border:1px solid var(--cyan);border-radius:18px;padding:18px}
+  .sav-card.hi{background:var(--navy);color:#fff;border:none}
+  .sav-card .sl{font-size:12px;font-weight:800;color:var(--navy-soft);font-family:'Heebo';margin-bottom:6px}
+  .sav-card.hi .sl{color:var(--yellow)}
+  .sav-card .sn{font-family:'Heebo';font-weight:900;font-size:32px;color:var(--navy)}
+  .sav-card.hi .sn{color:var(--yellow)}
+  .sav-card .nis-sm{font-size:14px;font-weight:700;opacity:0.7}
+
+  /* ---------- RISK REVERSAL ---------- */
+  .risk{background:var(--paper);padding:60px 24px}
+  .risk-box{background:#0E2A47;border-radius:32px;padding:54px 36px;text-align:center;color:#fff;position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(14,42,71,0.3)}
+
+  /* שכבת בלוקים דקורטיביים - פסים אופקיים בגוונים שונים של כחול */
+  .risk-stripes{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .risk-stripes::before{content:'';position:absolute;top:0;left:0;right:0;height:8px;background:linear-gradient(90deg,#2BA3D0 0%,#4FC3E8 33%,#1B4470 66%,#0E2A47 100%)}
+  .risk-stripes::after{content:'';position:absolute;bottom:0;left:0;right:0;height:6px;background:linear-gradient(90deg,#0E2A47 0%,#1B4470 50%,#2BA3D0 100%)}
+
+  /* בלוק לבן דקורטיבי בפינה השמאלית-עליונה */
+  .risk-blocks{position:absolute;inset:0;pointer-events:none;z-index:1}
+  .risk-blocks .b{position:absolute;border-radius:6px}
+  .risk-blocks .b1{top:24px;left:24px;width:60px;height:14px;background:#fff;opacity:0.95}
+  .risk-blocks .b2{top:24px;left:90px;width:24px;height:14px;background:#4FC3E8;opacity:0.9}
+  .risk-blocks .b3{top:44px;left:24px;width:30px;height:14px;background:#2BA3D0}
+  .risk-blocks .b4{top:44px;left:60px;width:14px;height:14px;background:#9FE0F2}
+  /* בלוקים בפינה הימנית-עליונה */
+  .risk-blocks .b5{top:24px;right:24px;width:14px;height:14px;background:#4FC3E8}
+  .risk-blocks .b6{top:24px;right:44px;width:50px;height:14px;background:#fff;opacity:0.95}
+  .risk-blocks .b7{top:44px;right:24px;width:36px;height:14px;background:#1B4470;border:1px solid rgba(255,255,255,0.3)}
+  /* בלוקים בפינה הימנית-תחתונה */
+  .risk-blocks .b8{bottom:30px;right:24px;width:80px;height:14px;background:linear-gradient(90deg,#2BA3D0,#4FC3E8)}
+  .risk-blocks .b9{bottom:30px;left:24px;width:14px;height:14px;background:#fff;opacity:0.95}
+  .risk-blocks .b10{bottom:30px;left:44px;width:50px;height:14px;background:#4FC3E8;opacity:0.7}
+
+  /* רקע משבצות זעיר */
+  .risk-grid{position:absolute;inset:60px 0;opacity:0.06;pointer-events:none;z-index:0;background-image:linear-gradient(0deg,#fff 1px,transparent 1px),linear-gradient(90deg,#fff 1px,transparent 1px);background-size:32px 32px}
+
+  .risk-shield{width:88px;height:88px;border-radius:24px;background:linear-gradient(135deg,#fff 0%,#E8F4FA 100%);box-shadow:0 14px 30px rgba(0,0,0,0.3),inset 0 2px 0 rgba(255,255,255,0.6);display:inline-flex;align-items:center;justify-content:center;font-size:40px;margin-bottom:20px;position:relative;z-index:3}
+  .risk-box h2{font-family:'Heebo';font-weight:900;font-size:clamp(32px,5vw,52px);line-height:1.05;margin-bottom:14px;position:relative;z-index:3;color:#fff;letter-spacing:-1px}
+  .risk-box h2 .y{background:linear-gradient(180deg,transparent 60%,var(--yellow) 60%);padding:0 4px;color:var(--navy)}
+  .risk-box h2 .g{color:#4FC3E8}
+  .risk-box p{font-size:17px;color:rgba(255,255,255,0.85);max-width:560px;margin:0 auto 32px;position:relative;z-index:3;line-height:1.6}
+
+  /* כרטיסים לבנים סולידים */
+  .risk-pills{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;position:relative;z-index:3;max-width:760px;margin:0 auto}
+  @media (max-width:640px){.risk-pills{grid-template-columns:1fr}}
+  .risk-pill{background:#fff;border-radius:18px;padding:22px 18px;font-family:'Heebo';font-weight:800;font-size:14px;display:flex;flex-direction:column;align-items:center;gap:12px;text-align:center;box-shadow:0 14px 30px rgba(0,0,0,0.35);transition:transform 0.2s ease;position:relative;overflow:hidden}
+  .risk-pill:hover{transform:translateY(-4px)}
+  /* פס צבעוני עליון בכל כרטיס - גוון כחול אחר */
+  .risk-pill::before{content:'';position:absolute;top:0;left:0;right:0;height:5px}
+  .risk-pill.c1::before{background:linear-gradient(90deg,#4FC3E8,#9FE0F2)}
+  .risk-pill.c2::before{background:linear-gradient(90deg,var(--yellow),var(--yellow-dark))}
+  .risk-pill.c3::before{background:linear-gradient(90deg,#2BA3D0,#1B4470)}
+  .risk-pill .ic{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:22px;font-weight:900}
+  .risk-pill.c1 .ic{background:linear-gradient(135deg,#4FC3E8,#2BA3D0);color:#fff;box-shadow:0 6px 16px rgba(79,195,232,0.4)}
+  .risk-pill.c2 .ic{background:linear-gradient(135deg,var(--yellow),var(--yellow-dark));color:var(--navy);box-shadow:0 6px 16px rgba(255,199,44,0.4)}
+  .risk-pill.c3 .ic{background:linear-gradient(135deg,#1B4470,#0E2A47);color:#fff;box-shadow:0 6px 16px rgba(14,42,71,0.4)}
+  .risk-pill .tt{color:var(--navy);font-family:'Heebo';font-weight:900;font-size:15px}
+  .risk-pill .ss{color:var(--navy-soft);font-size:12px;font-weight:600}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .how{background:var(--cyan-pale)}
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px;position:relative}
+  @media (max-width:760px){.steps{grid-template-columns:1fr}}
+  .steps::before{content:'';position:absolute;top:36px;right:14%;left:14%;border-top:3px dashed rgba(14,42,71,0.15);z-index:0}
+  @media (max-width:760px){.steps::before{display:none}}
+  .step{background:var(--paper);border-radius:22px;padding:28px 22px;text-align:center;box-shadow:0 10px 26px rgba(14,42,71,0.08);position:relative;z-index:1}
+  .step .num{width:54px;height:54px;border-radius:16px;background:var(--navy);color:var(--yellow);font-family:'Heebo';font-weight:900;font-size:24px;display:inline-flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 8px 20px rgba(14,42,71,0.2)}
+  .step .em{font-size:28px;display:block;margin-bottom:8px}
+  .step h3{font-family:'Heebo';font-weight:900;font-size:19px;color:var(--navy);margin-bottom:6px}
+  .step p{font-size:14px;color:var(--navy-text);line-height:1.55}
+
+  /* ---------- FORM ---------- */
+  .form-sec{background:var(--paper)}
+  .form-card{background:linear-gradient(135deg,var(--paper),var(--cream));border-radius:32px;padding:40px;border:1px solid var(--line);box-shadow:0 20px 50px rgba(14,42,71,0.1);margin-top:24px}
+  .progress{display:flex;gap:12px;justify-content:center;margin-bottom:30px;align-items:center}
+  .progress .s{display:flex;align-items:center;gap:8px}
+  .progress .s .d{width:32px;height:32px;border-radius:50%;background:var(--navy);color:var(--yellow);font-family:'Heebo';font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px}
+  .progress .s.off .d{background:#E6EAF0;color:var(--navy-soft)}
+  .progress .lbl{font-family:'Heebo';font-weight:800;font-size:13px;color:var(--navy)}
+  .progress .s.off .lbl{color:var(--navy-soft)}
+  .progress .line{width:30px;height:1px;background:var(--line)}
+  .fields{display:grid;gap:14px}
+  .field label{display:block;font-family:'Heebo';font-weight:800;font-size:12px;color:var(--navy);margin-bottom:6px}
+  .field input{width:100%;background:var(--paper);border:1.5px solid var(--line);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--navy);font-family:inherit}
+  .field input:focus{outline:none;border-color:var(--cyan)}
+  .form-cta{width:100%;background:var(--navy);color:var(--yellow);border:none;font-family:'Heebo';font-weight:900;font-size:18px;padding:18px;border-radius:14px;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px}
+  .form-note{text-align:center;margin-top:14px;color:var(--navy-soft);font-size:12px}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:var(--navy);color:#fff;padding:50px 24px 32px}
+  .foot-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.2fr 2fr;gap:32px;align-items:start}
+  @media (max-width:760px){.foot-wrap{grid-template-columns:1fr;text-align:center}}
+  .foot-brand{display:flex;align-items:flex-start;gap:14px}
+  @media (max-width:760px){.foot-brand{justify-content:center}}
+  .foot-info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media (max-width:760px){.foot-info{grid-template-columns:1fr;gap:18px}}
+  .foot-info .ic{font-size:18px;color:var(--yellow);margin-bottom:6px}
+  .foot-info .ll{font-family:'Heebo';font-weight:800;font-size:12px;opacity:0.7;letter-spacing:1px;margin-bottom:2px}
+  .foot-info .vv{font-size:15px}
+  .foot-bottom{max-width:1180px;margin:30px auto 0;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08);display:flex;justify-content:space-between;font-size:12px;opacity:0.6;flex-wrap:wrap;gap:10px}
+  @media (max-width:760px){.foot-bottom{justify-content:center;text-align:center}}
+
+  /* ---------- FAB ACCESSIBILITY ---------- */
+  .fab-access{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;background:var(--cyan);color:#fff;display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 12px 28px rgba(79,195,232,0.5);z-index:60}
+
+  /* ---------- NOTIFICATION ---------- */
+  .notif{position:fixed;bottom:20px;left:20px;background:#fff;border-radius:14px;padding:12px 16px;display:flex;align-items:center;gap:10px;box-shadow:0 14px 30px rgba(14,42,71,0.15);border:1px solid var(--line);z-index:60;max-width:280px}
+  .notif .ic{width:34px;height:34px;border-radius:50%;background:#E8F5E9;color:var(--green);display:flex;align-items:center;justify-content:center;font-size:14px}
+  .notif .nt{font-family:'Heebo';font-weight:800;font-size:13px;color:var(--navy)}
+  .notif .ns{font-size:11px;color:var(--navy-soft)}
+
+  /* ---------- SECTION LABEL ---------- */
+  .sec-label{position:absolute;top:14px;right:14px;background:rgba(14,42,71,0.06);color:var(--navy);padding:4px 10px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:10px;letter-spacing:1.5px;z-index:3}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <span class="sec-label">01 · HERO</span>
+  <svg class="hero-leaf l" viewBox="0 0 200 200"><path d="M100 10 Q40 80 30 180 Q90 130 160 180 Q150 80 100 10 Z" fill="#4CB050"/></svg>
+  <svg class="hero-leaf r" viewBox="0 0 200 200"><path d="M100 10 Q40 80 30 180 Q90 130 160 180 Q150 80 100 10 Z" fill="#4CB050"/></svg>
+
+  <div class="hero-nav">
+    <div class="brand">
+      <div class="brand-logo">CKH</div>
+      <div class="brand-text">קאנטרי קריית השרון<small>מועדון הספורט של השכונה · מאז 2010</small></div>
+    </div>
+    <div class="nav-pills">
+      <span class="nav-pill"><span class="pdot"></span>פתוח גם בשבת</span>
+      <span class="nav-pill"><span class="pdot" style="background:var(--yellow)"></span>80 מקומות בלבד</span>
+    </div>
+  </div>
+
+  <div class="hero-center">
+    <h1 class="hero-h">
+      <span class="row-top" style="color:#4FC3E8">יריד</span>
+      <span class="row-mega"><span class="swoosh">המכירות</span></span>
+      <span class="row-bot">של <span style="color:#4FC3E8">הקיץ</span></span>
+    </h1>
+    <p class="hero-lede">
+      מנוי קיץ בקאנטרי קריית השרון הכולל <strong>בריכה חצי אולימפית</strong>,
+      כניסה ל<strong>מכון הכושר החדש!</strong> סאונה והפעלות לכל המשפחה.
+      <strong>פתוח גם בשבת.</strong>
+    </p>
+
+    <div class="countdown-label">
+      <span style="display:inline-flex;align-items:center;gap:10px;background:var(--navy);color:#fff;padding:14px 22px;border-radius:14px;font-family:'Heebo';font-weight:800;font-size:15px;box-shadow:0 12px 28px rgba(14,42,71,0.25);margin-bottom:24px">
+        📅 ההטבה נסגרת בסיום היום של ה-<span style="color:var(--yellow);font-size:1.15em;font-weight:900;margin:0 4px">28</span>לחודש
+      </span>
+    </div>
+
+    <div style="margin-top:8px">
+      <a class="cta-primary" href="#checkout">רק ביריד המכירות — הנחה משמעותית לרכישת המנוי →</a>
+      <span class="cta-sub">פחות מ-60 שניות · ללא חיוב מקדים</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social">
+  <span class="sec-label">02 · SOCIAL PROOF</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>למה אנחנו</span>
+      <h2 class="section-h">הקאנטרי של <span class="accent">קריית השרון</span></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="icbox">📅</div>
+        <div class="num">15+</div>
+        <div class="lbl">שנים של פעילות בשכונה</div>
+        <div class="sub">מאז 2010 — חלק מהקהילה</div>
+      </div>
+      <div class="stat-card alt">
+        <div class="icbox">👨‍👩‍👧</div>
+        <div class="num">1,300+</div>
+        <div class="lbl">מנויים פעילים</div>
+        <div class="sub">משפחות שבחרו בנו לאורך השנים</div>
+      </div>
+      <div class="stat-card alt2">
+        <div class="icbox">💪</div>
+        <div class="num" style="font-size:36px">חדש!</div>
+        <div class="lbl">מכון כושר חדש ומשופץ</div>
+        <div class="sub">ציוד חדיש · מרחב נעים · מאמנים מקצועיים</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOSS -->
+<section class="voss">
+  <span class="sec-label">03 · VOSS BLOCK</span>
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow dark"><span class="dot"></span>רגע לפני שאתם ממשיכים</span>
+      <h2 class="section-h">שלוש שאלות <span class="accent">קצרות</span></h2>
+    </div>
+    <div class="voss-list">
+      <div class="voss-q">
+        <div class="ic">💰</div>
+        <p>האם הגיוני לחכות שבוע נוסף ולשלם יותר על אותו מנוי בדיוק?</p>
+      </div>
+      <div class="voss-q alt">
+        <div class="ic">🏊</div>
+        <p>האם תרצו לסיים עוד קיץ ולגלות שכל השכונה נהנתה — חוץ מכם?</p>
+      </div>
+      <div class="voss-q">
+        <div class="ic">📅</div>
+        <p>האם נכון להחמיץ הטבה חד-פעמית בגלל היסוס של דקה אחת?</p>
+      </div>
+    </div>
+    <p class="voss-foot">אם עניתם <span class="em">״לא״</span> אפילו על אחת מהן — המקום שלכם כבר מחכה.</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="gallery">
+  <span class="sec-label">04 · FACILITIES "NEW DAY"</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>המתחם שלנו</span>
+      <h2 class="section-h">ככה נראה <span class="accent">היום שלכם</span> אצלנו</h2>
+      <p class="section-sub">לא רק מתקנים. מקום אחד שבו אתם מורידים הילוך, מטעינים את עצמכם והילדים שמחים.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal-cell big img1">
+        <div class="bg"><span class="emoji">🏊‍♂️</span></div>
+        <div class="overlay"><h3>בריכה חצי אולימפית</h3><p>מקורה ומחוממת לכל אורך השנה. 45 דקות בלבד בבוקר — וכל היום נראה אחרת.</p></div>
+        <span class="pin">⭐ הכי טוב</span>
+      </div>
+      <div class="gal-cell img2"><div class="bg"><span class="emoji">💪</span></div><div class="overlay"><h3>מכון כושר חדש</h3><p>חדש ומשופץ — ציוד חדיש, מרחב נושם, מאמנים שמכירים אתכם בשם.</p></div></div>
+      <div class="gal-cell img5"><div class="bg"><span class="emoji">👶</span></div><div class="overlay"><h3>בריכת פעוטות</h3><p>מים רדודים, שמש, צחוקים — והילדים הקטנים רגועים ושמחים.</p></div></div>
+      <div class="gal-cell wide img4"><div class="bg"><span class="emoji">🧘‍♀️</span></div><div class="overlay"><h3>חוגי סטודיו</h3><p>יוגה, פילאטיס, ספינינג, זומבה ועוד. שעה אחת בשבוע שמחזירה את הראש.</p></div></div>
+      <div class="gal-cell img6"><div class="bg"><span class="emoji">🎨</span></div><div class="overlay"><h3>הפעלות לכל המשפחה</h3><p>שעה של תנועה, חברים וצחוק — הילד שלכם חוזר עייף מהסוג הטוב.</p></div></div>
+      <div class="gal-cell img7"><div class="bg"><span class="emoji">☕</span></div><div class="overlay"><h3>קפיטריה</h3><p>קפה טוב, ארטיק לילדים, ארוחת בוקר עם נוף לבריכה.</p></div></div>
+      <div class="gal-cell wide img8"><div class="bg"><span class="emoji">🌿</span></div><div class="overlay"><h3>פינה ירוקה</h3><p>בלב השכונה, בין החורשה לבניינים. עיר אחת בחוץ — ועולם אחר מבפנים.</p></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section class="compare">
+  <span class="sec-label">05 · COMPARISON</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>למה דווקא כאן</span>
+      <h2 class="section-h"><span class="accent">אנחנו</span> מול האלטרנטיבות</h2>
+    </div>
+    <div class="compare-table">
+      <table>
+        <thead><tr><th></th><th class="us-col-h">קאנטרי קריית השרון</th><th>סטודיו שכונתי</th><th>פארק / בית</th><th>קאנטרי אחר</th></tr></thead>
+        <tbody>
+          <tr><td>בריכה חצי אולימפית מקורה</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>בריכת פעוטות גדולה</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td><td><span class="qq">?</span></td></tr>
+          <tr><td>מכון כושר חדש ומשופץ</td><td class="us-col"><span class="check">✓</span></td><td><span class="qq">?</span></td><td><span class="xx">✕</span></td><td><span class="qq">?</span></td></tr>
+          <tr><td>פתוח גם בשבת</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="check">✓</span></td><td><span class="xx">✕</span></td></tr>
+          <tr><td>סאונה יבשה</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td><td><span class="qq">?</span></td></tr>
+          <tr><td>חוגי סטודיו מגוונים</td><td class="us-col"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>אווירה משפחתית, יחס אישי</td><td class="us-col"><span class="check">✓</span></td><td><span class="qq">?</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testi">
+  <span class="sec-label">06 · TESTIMONIALS</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>המנויים שלנו מספרים</span>
+      <h2 class="section-h"><span class="accent">1,300+</span> מנויים פעילים</h2>
+      <p class="section-sub">לא ביקשנו מהם להגיד את זה</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>אחרי שנים שניסיתי כל מיני מקומות, פה הילדים שלי מבקשים לבוא כל בוקר. הצוות מכיר את כולם בשם.</p>
+        <div class="testi-author"><div class="testi-avatar">מ</div><div><div class="testi-name">מיכל ק.</div><div class="testi-role">מנויה 4 שנים, אמא לשניים</div></div></div>
+      </div>
+      <div class="testi-card offset">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>השחייה בבוקר לפני העבודה הפכה למקום הכי שקט שיש לי ביום. הבריכה מקורה ומחוממת, אין תירוצים בחורף.</p>
+        <div class="testi-author"><div class="testi-avatar">א</div><div><div class="testi-name">אבי מ.</div><div class="testi-role">מנוי 6 שנים</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>מכון הכושר הכי לא מאיים שהייתי בו. אני לא ספורטאית, ופה הרגשתי בנוח מהיום הראשון.</p>
+        <div class="testi-author"><div class="testi-avatar">ל</div><div><div class="testi-name">ליאת ב.</div><div class="testi-role">מנויה שנתיים</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUILT -->
+<section class="guilt">
+  <span class="sec-label">07 · GUILT RELEASE</span>
+  <div class="container-narrow">
+    <span class="eyebrow"><span class="dot"></span>רגע של אמת</span>
+    <h2 style="margin-top:16px">כל קיץ אתם אומרים<em>״הקיץ הבא אני מתחיל״</em></h2>
+    <p>אנחנו יודעים. אנחנו לא שופטים. רוב האנשים שמצטרפים אלינו כבר אמרו את זה לעצמם פעמיים-שלוש.</p>
+    <p>אז הפעם הסרנו את כל התירוצים: מחיר נמוך במיוחד, מנוי מקוצר, ללא התחייבות שנתית — ועם הזמן להתחיל ברצינות.</p>
+    <p class="em">לא נשאר אף תירוץ. רק להחליט.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section class="pricing">
+  <span class="sec-label">08 · PRICING</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow dark"><span class="dot"></span>המחיר</span>
+      <h2 class="section-h">רק ב-<span class="accent">28.5</span>: המחיר הכי טוב של הקיץ</h2>
+      <p class="section-sub">רוכשים מנוי עכשיו ונמנעים מעליית המחירים שנכנסת לתוקף</p>
+      <p style="text-align:center;color:var(--navy);font-family:'Heebo';font-weight:800;font-size:14px;margin-top:12px;background:#FFF8E1;display:inline-block;padding:8px 18px;border-radius:99px;border:1px dashed var(--yellow)">לדוגמה בלבד: זוג + 1 ילד · יתר המחירים יוצגו ביום היריד</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card regular">
+        <div class="label">מחיר רגיל</div>
+        <div class="num-row"><span class="num">3,500</span><span class="nis">ש״ח</span></div>
+        <span class="saving" style="color:var(--navy-soft)">לזוג + 1 ילד · מנוי קיץ</span>
+        <ul>
+          <li>מחיר רגיל ללא ההטבה</li>
+          <li>אותם מתקנים, אותם חוגים</li>
+          <li>ללא בונוס יום היריד</li>
+          <li>ללא קיבוע מחיר</li>
+        </ul>
+        <button class="cta-card">מחיר רגיל — לא רלוונטי ב-28.5</button>
+      </div>
+      <div class="price-card vip">
+        <div class="pills"><span class="pill-y">👑 מחיר יום היריד</span><span class="pill-w">ללא התחייבות</span></div>
+        <div class="label">מנוי קיץ · זוג + 1 ילד</div>
+        <div class="num-row"><span class="num">3,150</span><span class="nis">ש״ח</span></div>
+        <span class="saving">חיסכון 350 ש״ח · במקום 3,500</span>
+        <ul>
+          <li>כניסה חופשית לבריכה ולמכון הכושר החדש</li>
+          <li>כל חוגי הסטודיו ללא הגבלה</li>
+          <li>בריכת פעוטות + הפעלות למשפחה</li>
+          <li>סאונה ושימוש בכל המתקנים</li>
+          <li>מחיר נעול לכל הקיץ — ללא העלאות</li>
+          <li>פתוח גם בשבת</li>
+        </ul>
+        <button class="cta-card">אני רוצה את המחיר הזה</button>
+      </div>
+    </div>
+    <p style="text-align:center;color:var(--navy-soft);font-size:13px;margin-top:18px;font-style:italic">* יתר ההרכבים (יחיד · זוג · משפחה מורחבת) — המחירים יוצגו ביום היריד.</p>
+  </div>
+</section>
+
+<!-- SAVINGS -->
+<section class="savings">
+  <span class="sec-label">09 · FAMILY TIME CALCULATOR</span>
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>מחשבון בילוי משפחתי</span>
+      <h2 class="section-h">תזיזו את הסליידר וראו כמה<br><span class="accent">שעות בילוי משפחתי</span> מחכות לכם</h2>
+    </div>
+    <div class="savings-box">
+      <div class="savings-row"><span class="l">כמה פעמים בשבוע אתם מתכננים להגיע?</span><span class="r">3 ביקורים</span></div>
+      <div class="slider"><div class="thumb"></div></div>
+      <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+      <div class="savings-result">
+        <div class="sav-card"><div class="sl">ביקורים לכל הקיץ</div><div class="sn">39 <span class="nis-sm">ימי הנאה</span></div></div>
+        <div class="sav-card hi"><div class="sl">⏱ שעות בילוי משפחתי</div><div class="sn">97 <span class="nis-sm">שעות בקיץ</span></div></div>
+      </div>
+      <button class="cta-card" style="width:100%;background:var(--yellow);color:var(--navy);font-family:'Heebo';font-weight:900;font-size:17px;padding:18px;border-radius:14px;border:none;cursor:pointer">אני רוצה 97 שעות בילוי משפחתי →</button>
+      <p style="text-align:center;color:var(--navy-soft);font-size:12px;margin-top:14px">* בהנחה של כשעתיים וחצי לביקור · קיץ של 13 שבועות</p>
+    </div>
+  </div>
+</section>
+
+<!-- RISK -->
+<section class="risk">
+  <span class="sec-label">10 · RISK REVERSAL</span>
+  <div class="container-narrow">
+    <div class="risk-box">
+      <div class="risk-stripes"></div>
+      <div class="risk-grid"></div>
+      <div class="risk-blocks">
+        <div class="b b1"></div><div class="b b2"></div>
+        <div class="b b3"></div><div class="b b4"></div>
+        <div class="b b5"></div><div class="b b6"></div>
+        <div class="b b7"></div>
+        <div class="b b8"></div>
+        <div class="b b9"></div><div class="b b10"></div>
+      </div>
+      <div class="risk-shield">🛡️</div>
+      <h2>אפס סיכון.<br><span class="y">אפס חששות.</span> <span class="g">רק הזדמנות.</span></h2>
+      <p>לא בטוחים? לא בא לכם להתחייב? אנחנו מבינים — לכן הכנו רשת ביטחון מלאה.</p>
+      <div class="risk-pills">
+        <div class="risk-pill c1">
+          <div class="ic">⏱</div>
+          <div class="tt">מנוי מקוצר</div>
+          <div class="ss">3 חודשי קיץ בלבד</div>
+        </div>
+        <div class="risk-pill c2">
+          <div class="ic">🔓</div>
+          <div class="tt">ללא התחייבות שנתית</div>
+          <div class="ss">לא נועלים אתכם</div>
+        </div>
+        <div class="risk-pill c3">
+          <div class="ic">✓</div>
+          <div class="tt">אין דמי הרשמה נסתרים</div>
+          <div class="ss">המחיר שאתם רואים</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how">
+  <span class="sec-label">11 · HOW IT WORKS</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>ככה זה עובד</span>
+      <h2 class="section-h"><span class="accent">3 שלבים</span> להתחיל את הקיץ</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><span class="em">📝</span><h3>ממלאים פרטים</h3><p>שם, טלפון, מייל — שלוש שורות, פחות מדקה.</p></div>
+      <div class="step"><div class="num">2</div><span class="em">📞</span><h3>נרשמים ליריד</h3><p>נציג מהקאנטרי יחזור אליכם לתיאום קצר ויאשר את ההגעה ליריד.</p></div>
+      <div class="step"><div class="num">3</div><span class="em">🏊</span><h3>מתחילים לבלות</h3><p>ביום היריד — בוחרים את המסלול, סוגרים את המנוי, ומתחילים את הקיץ.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section class="form-sec" id="checkout">
+  <span class="sec-label">12 · CHECKOUT</span>
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow dark"><span class="dot"></span>הרשמה</span>
+      <h2 class="section-h">עכשיו זה <span class="accent">תורכם</span></h2>
+      <p class="section-sub">פחות מ-60 שניות. כבר היום בבריכה.</p>
+    </div>
+    <div class="form-card">
+      <div class="progress">
+        <div class="s"><div class="d">1</div><span class="lbl">פרטים</span></div>
+        <div class="line"></div>
+        <div class="s off"><div class="d">2</div><span class="lbl">תשלום</span></div>
+        <div class="line"></div>
+        <div class="s off"><div class="d">3</div><span class="lbl">הצלחה</span></div>
+      </div>
+      <div class="fields">
+        <div class="field"><label>שם מלא</label><input type="text" placeholder="ישראלה ישראלי"></div>
+        <div class="field"><label>טלפון</label><input type="tel" placeholder="050-1234567" dir="ltr"></div>
+        <div class="field"><label>מייל (לא חובה)</label><input type="email" placeholder="you@example.com" dir="ltr"></div>
+        <button class="form-cta">המשך לתשלום ←</button>
+        <p class="form-note">הפרטים שלכם מוצפנים ולא מועברים לאף גורם מסחרי.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="sec-label" style="background:rgba(255,255,255,0.1);color:#fff">13 · FOOTER</span>
+  <div class="foot-wrap">
+    <div class="foot-brand">
+      <div class="brand-logo">CKH</div>
+      <div>
+        <div style="font-family:'Heebo';font-weight:900;font-size:16px">קאנטרי קריית השרון</div>
+        <div style="font-size:12px;opacity:0.7;margin-top:4px">מועדון הספורט של השכונה — מאז 2010</div>
+      </div>
+    </div>
+    <div class="foot-info">
+      <div><div class="ic">📍</div><div class="ll">כתובת</div><div class="vv">קריית השרון, נתניה</div></div>
+      <div><div class="ic">📞</div><div class="ll">טלפון</div><div class="vv" dir="ltr">09-000-0000</div></div>
+      <div><div class="ic">🕐</div><div class="ll">שעות פעילות</div><div class="vv">06:00–22:00 · כולל שבת</div></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2026 קאנטרי קריית השרון. כל הזכויות שמורות.</div>
+    <div style="display:flex;gap:18px">תקנון · פרטיות · נגישות</div>
+  </div>
+</footer>
+
+<!-- Floating overlays -->
+<div class="fab-access">♿</div>
+<div class="notif">
+  <div class="ic">✓</div>
+  <div>
+    <div class="nt">מיכל מקריית השרון הצטרפה</div>
+    <div class="ns">לפני 4 דקות</div>
+  </div>
+</div>
+
+</body>
+</html>

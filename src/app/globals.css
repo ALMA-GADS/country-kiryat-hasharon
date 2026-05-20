@@ -1,0 +1,199 @@
+@import "tailwindcss";
+
+@theme inline {
+  --color-brand-primary: #15A6E0;
+  --color-brand-primary-dark: #0E80AE;
+  --color-brand-primary-light: #45BCE8;
+  --color-brand-secondary: #B4CB15;
+  --color-brand-secondary-dark: #8FA210;
+  --color-brand-secondary-light: #C8DC3F;
+  --color-brand-black: #0A0A0A;
+  --color-brand-charcoal: #1A1A1A;
+  --color-brand-gray: #2A2A2A;
+  --color-brand-white: #FAFAFA;
+  --color-brand-cream: #F5F0EB;
+  --color-brand-gold: #D4A853;
+  --font-display: var(--font-heebo);
+  --font-body: var(--font-assistant);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #0A0A0A; }
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #15A6E0 0%, #B4CB15 100%);
+  border-radius: 4px;
+}
+
+/* Selection color */
+::selection { background: #15A6E0; color: white; }
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+body {
+  background: #0A0A0A;
+  color: #FAFAFA;
+  overflow-x: hidden;
+}
+
+/* Noise texture overlay — gives that premium feel */
+.noise-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Glow effect for CTA buttons (cyan primary) */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(21, 166, 224, 0.45), 0 0 60px rgba(21, 166, 224, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(21, 166, 224, 0.65), 0 0 80px rgba(21, 166, 224, 0.22);
+  }
+}
+.cta-glow { animation: pulse-glow 2s ease-in-out infinite; }
+
+/* Lime glow variation for secondary CTAs */
+@keyframes pulse-glow-lime {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(180, 203, 21, 0.45), 0 0 60px rgba(180, 203, 21, 0.12);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(180, 203, 21, 0.65), 0 0 80px rgba(180, 203, 21, 0.22);
+  }
+}
+.cta-glow-lime { animation: pulse-glow-lime 2s ease-in-out infinite; }
+
+/* Text gradient using primary -> secondary (cyan to lime) */
+.text-gradient-primary {
+  background: linear-gradient(135deg, #15A6E0, #B4CB15);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-cyan {
+  background: linear-gradient(135deg, #15A6E0, #45BCE8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-lime {
+  background: linear-gradient(135deg, #B4CB15, #C8DC3F);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Floating animation for decorative elements */
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+}
+.animate-float { animation: float 3s ease-in-out infinite; }
+
+/* Card hover lift effect */
+.card-lift { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+.card-lift:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 20px 60px rgba(21, 166, 224, 0.15);
+}
+
+/* Badge glow for the main offer (cyan + lime combo) */
+@keyframes badge-glow {
+  0%, 100% {
+    box-shadow:
+      0 0 20px rgba(21, 166, 224, 0.5),
+      0 0 60px rgba(21, 166, 224, 0.2),
+      inset 0 0 20px rgba(255,255,255,0.05);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(180, 203, 21, 0.55),
+      0 0 100px rgba(21, 166, 224, 0.3),
+      inset 0 0 30px rgba(255,255,255,0.1);
+  }
+}
+.offer-badge-glow { animation: badge-glow 2.4s ease-in-out infinite; }
+
+/* Shimmer effect */
+@keyframes shimmer-slide {
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
+}
+
+/* FOMO notification animations */
+@keyframes slide-in-left {
+  from { transform: translateX(-120%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+@keyframes slide-out-left {
+  from { transform: translateX(0); opacity: 1; }
+  to { transform: translateX(-120%); opacity: 0; }
+}
+.fomo-enter { animation: slide-in-left 0.5s ease-out forwards; }
+.fomo-exit { animation: slide-out-left 0.5s ease-in forwards; }
+
+/* Mobile scroll hint */
+@keyframes scroll-hint {
+  0%, 100% { transform: translateX(0); opacity: 0.6; }
+  50% { transform: translateX(-8px); opacity: 1; }
+}
+.animate-scroll-hint { animation: scroll-hint 1.5s ease-in-out infinite; }
+
+/* Tabular nums for counters */
+.counter-number { font-variant-numeric: tabular-nums; }
+
+/* Water ripple decorative animation */
+@keyframes ripple {
+  0% { transform: scale(0.8); opacity: 0.7; }
+  100% { transform: scale(2.4); opacity: 0; }
+}
+.water-ripple { animation: ripple 3s ease-out infinite; }
+
+/* Accessibility: High Contrast */
+.accessibility-high-contrast { filter: contrast(1.5); }
+
+/* Accessibility: Link Highlight */
+.accessibility-link-highlight a,
+.accessibility-link-highlight button {
+  outline: 2px solid #FFD700 !important;
+  outline-offset: 2px;
+}
+
+/* Range slider styling for SavingsCalculator */
+input[type="range"].brand-slider {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: linear-gradient(90deg, #15A6E0, #B4CB15);
+  border-radius: 999px;
+  outline: none;
+}
+input[type="range"].brand-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FAFAFA;
+  border: 3px solid #15A6E0;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(21, 166, 224, 0.6);
+}
+input[type="range"].brand-slider::-moz-range-thumb {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #FAFAFA;
+  border: 3px solid #15A6E0;
+  cursor: pointer;
+  box-shadow: 0 0 16px rgba(21, 166, 224, 0.6);
+}

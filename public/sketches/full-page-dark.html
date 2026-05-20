@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דף נחיתה — פלטה ראשונה (Dark)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;700;800;900&family=Assistant:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0A0A0A;
+    --bg-alt:#0D0D0D;
+    --card:#1A1A1A;
+    --card-light:#222;
+    --border:rgba(255,255,255,0.08);
+    --white:#FAFAFA;
+    --gray-300:#D1D5DB;
+    --gray-400:#9CA3AF;
+    --gray-500:#6B7280;
+    --primary:#15A6E0;
+    --primary-light:#45BCE8;
+    --primary-dark:#0E80AE;
+    --secondary:#B4CB15;
+    --secondary-light:#C8DC3F;
+    --secondary-dark:#8FA210;
+    --gold:#D4A853;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{font-family:'Assistant','Heebo',sans-serif;background:var(--bg);color:var(--white);line-height:1.5;overflow-x:hidden}
+  img,svg{display:block;max-width:100%}
+  a{color:inherit;text-decoration:none}
+
+  /* Noise overlay */
+  .noise{position:fixed;inset:0;pointer-events:none;z-index:9999;opacity:0.03;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+  section{padding:90px 24px;position:relative;overflow:hidden;background:var(--bg)}
+  .container{max-width:1180px;margin:0 auto;position:relative;z-index:2}
+  .container-narrow{max-width:880px;margin:0 auto;position:relative;z-index:2}
+  .eyebrow{display:inline-flex;align-items:center;gap:8px;background:rgba(21,166,224,0.15);border:1px solid rgba(21,166,224,0.35);color:var(--primary);padding:7px 14px;border-radius:99px;font-family:'Heebo';font-weight:800;font-size:12px;letter-spacing:1.5px}
+  .eyebrow.lime{background:rgba(180,203,21,0.15);border-color:rgba(180,203,21,0.35);color:var(--secondary)}
+  .eyebrow .dot{width:6px;height:6px;border-radius:50%;background:currentColor;animation:pulse 2s infinite}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.4}}
+  h2.section-h{font-family:'Heebo';font-weight:900;font-size:clamp(34px,5vw,56px);line-height:1.04;letter-spacing:-1.5px;color:var(--white);margin:14px 0 12px}
+  h2.section-h .accent{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  p.section-sub{font-size:18px;color:var(--gray-400);max-width:620px;margin:0 auto}
+  .section-head{text-align:center;margin-bottom:54px}
+
+  /* ---------- HERO ---------- */
+  .hero{padding:32px 24px 90px;background:var(--bg);position:relative;min-height:90vh;display:flex;flex-direction:column;justify-content:center;isolation:isolate}
+  .hero-photo{position:absolute;inset:0;z-index:-2;background-image:url('/images/hero.png'),url('/images/sketch-hero-photo.svg');background-size:cover;background-position:center 30%;filter:brightness(0.35)}
+  .hero-photo::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,10,10,0.6) 0%,rgba(10,10,10,0.4) 50%,var(--bg) 100%)}
+  .hero-glow-1{position:absolute;top:25%;right:-10%;width:600px;height:600px;background:rgba(21,166,224,0.15);border-radius:50%;filter:blur(180px);z-index:-1;pointer-events:none}
+  .hero-glow-2{position:absolute;bottom:25%;left:-10%;width:500px;height:500px;background:rgba(180,203,21,0.1);border-radius:50%;filter:blur(180px);z-index:-1;pointer-events:none}
+
+  .hero-nav{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;position:relative;z-index:3}
+  .brand{display:flex;align-items:center;gap:12px}
+  .brand-logo{width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));display:flex;align-items:center;justify-content:center;color:var(--bg);font-family:'Heebo';font-weight:900;font-size:18px;box-shadow:0 8px 20px rgba(21,166,224,0.4)}
+  .brand-text{font-family:'Heebo';font-weight:900;font-size:16px;color:var(--white)}
+  .brand-text small{display:block;font-size:11px;font-weight:600;color:var(--gray-500)}
+  .nav-pills{display:flex;gap:8px;flex-wrap:wrap}
+  .nav-pill{background:rgba(255,255,255,0.05);border:1px solid var(--border);padding:8px 14px;border-radius:99px;font-family:'Heebo';font-weight:800;font-size:12px;color:var(--white);display:inline-flex;gap:6px;align-items:center}
+  .nav-pill .pdot{width:6px;height:6px;border-radius:50%;background:var(--secondary)}
+
+  .hero-center{text-align:center;max-width:880px;margin:0 auto;position:relative;z-index:3}
+
+  /* Offer badge דרמטי */
+  .offer-badge{position:relative;display:inline-block;margin-bottom:30px}
+  .offer-badge::before{content:'';position:absolute;inset:-4px;background:linear-gradient(135deg,var(--primary),var(--secondary),var(--primary));border-radius:99px;filter:blur(16px);opacity:0.6}
+  .offer-badge-inner{position:relative;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);padding:12px 28px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:14px;letter-spacing:1px;box-shadow:0 0 30px rgba(21,166,224,0.5),inset 0 1px 0 rgba(255,255,255,0.2);overflow:hidden}
+  .offer-badge-inner::before{content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.3),transparent);transform:skewX(-20deg);animation:shimmer 3s infinite}
+  @keyframes shimmer{0%,100%{left:-100%}50%{left:200%}}
+
+  h1.hero-h{font-family:'Heebo';font-weight:900;line-height:0.92;letter-spacing:-2.5px;color:var(--white);margin-bottom:18px}
+  h1.hero-h .row-top{font-size:clamp(42px,7vw,80px);display:block}
+  h1.hero-h .row-mega{font-size:clamp(80px,15vw,170px);display:block;line-height:0.85;margin:8px 0;background:linear-gradient(135deg,var(--primary) 0%,var(--secondary) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  h1.hero-h .row-bot{font-size:clamp(34px,6vw,58px);display:block;color:var(--white)}
+
+  .hero-lede{font-size:19px;color:var(--gray-300);max-width:580px;margin:18px auto 28px}
+  .hero-lede strong{color:var(--white)}
+
+  .info-bar{display:inline-flex;gap:18px;align-items:center;background:rgba(255,255,255,0.04);border:1px solid var(--border);backdrop-filter:blur(10px);padding:14px 24px;border-radius:18px;font-family:'Heebo';font-weight:700;font-size:14px;margin-bottom:28px;flex-wrap:wrap;justify-content:center;color:var(--white)}
+  .info-bar .sep{width:1px;height:16px;background:var(--border)}
+  .info-bar .accent{color:var(--primary)}
+  .info-bar .accent-lime{color:var(--secondary)}
+
+  .countdown{display:inline-flex;gap:10px;justify-content:center;margin-bottom:30px}
+  .cd-box{background:rgba(255,255,255,0.05);border:1px solid var(--border);backdrop-filter:blur(10px);padding:14px 20px;border-radius:16px;min-width:78px;text-align:center}
+  .cd-box .num{font-family:'Heebo';font-weight:900;font-size:36px;color:var(--white);line-height:1}
+  .cd-box .lbl{font-size:11px;color:var(--gray-400);margin-top:4px;font-weight:700;letter-spacing:1px}
+
+  .cta-primary{display:inline-flex;align-items:center;gap:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);font-family:'Heebo';font-weight:900;font-size:20px;padding:20px 50px;border-radius:18px;border:none;cursor:pointer;box-shadow:0 0 30px rgba(21,166,224,0.5),0 14px 40px rgba(21,166,224,0.3);transition:transform 0.2s ease;position:relative;overflow:hidden}
+  .cta-primary::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.2),transparent);transform:translateX(-100%);transition:transform 0.6s ease}
+  .cta-primary:hover{transform:translateY(-3px)}
+  .cta-primary:hover::before{transform:translateX(100%)}
+  .cta-sub{display:block;margin-top:14px;color:var(--gray-500);font-weight:700;font-size:13px}
+
+  /* ---------- SOCIAL PROOF ---------- */
+  .social{background:linear-gradient(180deg,var(--bg) 0%,var(--bg-alt) 50%,var(--bg) 100%)}
+  .social::before{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:700px;height:400px;background:rgba(21,166,224,0.05);border-radius:50%;filter:blur(150px)}
+  .stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:24px}
+  @media (max-width:760px){.stats-grid{grid-template-columns:1fr}}
+  .stat-card{background:linear-gradient(180deg,var(--card),#111);border:1px solid var(--border);border-radius:24px;padding:32px 24px;text-align:center;position:relative;overflow:hidden;transition:transform 0.3s ease,border-color 0.3s ease}
+  .stat-card:hover{transform:translateY(-6px);border-color:rgba(21,166,224,0.3)}
+  .stat-card .icbox{width:56px;height:56px;border-radius:18px;background:rgba(21,166,224,0.1);border:1px solid rgba(21,166,224,0.25);color:var(--primary);display:inline-flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px}
+  .stat-card .num{font-family:'Heebo';font-weight:900;font-size:48px;color:var(--white);line-height:1;background:linear-gradient(180deg,var(--white),var(--gray-400));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .stat-card .lbl{font-family:'Heebo';font-weight:800;font-size:16px;color:var(--white);margin-top:8px}
+  .stat-card .sub{font-size:13px;color:var(--gray-500);margin-top:4px}
+  .stat-card.alt .icbox{background:rgba(180,203,21,0.1);border-color:rgba(180,203,21,0.25);color:var(--secondary)}
+  .stat-card.alt:hover{border-color:rgba(180,203,21,0.3)}
+  .stat-card.alt2 .icbox{background:rgba(21,166,224,0.1);border-color:rgba(21,166,224,0.25);color:var(--primary)}
+
+  /* ---------- VOSS ---------- */
+  .voss-list{display:grid;gap:16px;margin-top:36px}
+  .voss-q{background:linear-gradient(135deg,var(--card),#111);border:1px solid var(--border);border-radius:20px;padding:24px 28px;display:flex;align-items:center;gap:20px;transition:all 0.3s ease}
+  .voss-q:hover{border-color:rgba(21,166,224,0.4);transform:translateX(-4px)}
+  .voss-q.alt:hover{border-color:rgba(180,203,21,0.4)}
+  .voss-q .ic{width:54px;height:54px;border-radius:14px;background:rgba(21,166,224,0.1);border:1px solid rgba(21,166,224,0.3);color:var(--primary);display:flex;align-items:center;justify-content:center;font-size:24px;flex:0 0 auto;transition:all 0.3s ease}
+  .voss-q.alt .ic{background:rgba(180,203,21,0.1);border-color:rgba(180,203,21,0.3);color:var(--secondary)}
+  .voss-q p{font-family:'Heebo';font-weight:800;font-size:clamp(17px,2.4vw,22px);color:var(--white);line-height:1.35}
+  .voss-foot{text-align:center;margin-top:24px;color:var(--gray-400);font-size:15px}
+  .voss-foot .em{color:var(--secondary);font-weight:900}
+
+  /* ---------- GALLERY ---------- */
+  .gallery-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;grid-auto-rows:240px;margin-top:36px}
+  @media (max-width:920px){.gallery-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.gallery-grid{grid-template-columns:1fr}}
+  .gal-cell{position:relative;border-radius:24px;overflow:hidden;background:var(--card);border:1px solid var(--border)}
+  .gal-cell.big{grid-column:span 2;grid-row:span 2}
+  .gal-cell.wide{grid-column:span 2}
+  @media (max-width:920px){.gal-cell.big{grid-row:span 1}}
+  @media (max-width:560px){.gal-cell.big,.gal-cell.wide{grid-column:span 1}}
+  .gal-cell .bg{position:absolute;inset:0;background-size:cover;background-position:center;filter:brightness(0.55);transition:filter 0.3s ease,transform 0.7s ease;display:flex;align-items:center;justify-content:center}
+  .gal-cell:hover .bg{filter:brightness(0.45);transform:scale(1.05)}
+  .gal-cell.img1 .bg{background-image:url('/images/pool-main.png')}
+  .gal-cell.img2 .bg{background-image:url('/images/gym.png')}
+  .gal-cell.img4 .bg{background-image:url('/images/studio.png')}
+  .gal-cell.img5 .bg{background-image:url('/images/kids-pool.png')}
+  .gal-cell.img6 .bg{background-image:url('/images/kids-activities.png')}
+  .gal-cell.img7 .bg{background-image:url('/images/cafeteria.png')}
+  .gal-cell.img8 .bg{background-image:url('/images/outdoor.png')}
+  .gal-cell .overlay{position:absolute;inset:0;background:linear-gradient(180deg,transparent 30%,rgba(0,0,0,0.85) 100%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px;color:var(--white)}
+  .gal-cell h3{font-family:'Heebo';font-weight:900;font-size:20px;margin-bottom:6px;color:var(--white)}
+  .gal-cell p{font-size:13px;color:rgba(255,255,255,0.75);line-height:1.45}
+  .gal-cell .pin{position:absolute;top:14px;right:14px;background:var(--primary);color:var(--white);padding:4px 10px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:11px;box-shadow:0 0 16px rgba(21,166,224,0.6)}
+  .gal-cell .dot{position:absolute;top:14px;left:14px;width:10px;height:10px;border-radius:50%;background:var(--primary);opacity:0;transition:opacity 0.3s ease;box-shadow:0 0 12px var(--primary)}
+  .gal-cell:hover .dot{opacity:1}
+
+  /* ---------- COMPARISON ---------- */
+  .compare-table{margin-top:36px;border-radius:24px;overflow:hidden;border:1px solid var(--border);background:var(--card);box-shadow:0 12px 40px rgba(0,0,0,0.5)}
+  .compare-table table{width:100%;border-collapse:collapse}
+  .compare-table th,.compare-table td{padding:16px 12px;text-align:center;font-size:14px;border-bottom:1px solid var(--border);color:var(--gray-300)}
+  .compare-table th{background:#141414;font-family:'Heebo';font-weight:900;color:var(--white)}
+  .compare-table td:first-child,.compare-table th:first-child{text-align:right;padding-right:24px;font-weight:700;color:var(--white)}
+  .compare-table .us-col{background:rgba(21,166,224,0.08);border-left:1px solid rgba(21,166,224,0.3);border-right:1px solid rgba(21,166,224,0.3);color:var(--white);font-weight:900}
+  .compare-table .us-col-h{background:linear-gradient(180deg,rgba(21,166,224,0.3),rgba(21,166,224,0.1));color:var(--white);position:relative;border-left:1px solid rgba(21,166,224,0.4);border-right:1px solid rgba(21,166,224,0.4)}
+  .compare-table .us-col-h::before{content:'★ אנחנו';position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--primary);color:var(--white);padding:3px 12px;border-radius:99px;font-size:10px;font-weight:900;white-space:nowrap;box-shadow:0 4px 12px rgba(21,166,224,0.4)}
+  .check{color:var(--secondary);font-weight:900;font-size:18px}
+  .xx{color:var(--gray-500);font-size:18px}
+  .qq{color:var(--gray-400);font-size:16px}
+
+  /* ---------- TESTIMONIALS ---------- */
+  .testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px}
+  @media (max-width:920px){.testi-grid{grid-template-columns:repeat(2,1fr)}}
+  @media (max-width:560px){.testi-grid{grid-template-columns:1fr}}
+  .testi-card{background:linear-gradient(135deg,var(--card),#111);border:1px solid var(--border);border-radius:22px;padding:26px;position:relative;transition:transform 0.3s ease}
+  .testi-card.offset{transform:translateY(20px)}
+  @media (max-width:920px){.testi-card.offset{transform:none}}
+  .testi-card:hover{transform:translateY(-4px)}
+  .testi-card.offset:hover{transform:translateY(16px)}
+  .testi-quote{font-size:32px;line-height:1;color:var(--primary);font-family:'Heebo';font-weight:900;margin-bottom:4px;opacity:0.7}
+  .testi-stars{color:var(--secondary);font-size:14px;letter-spacing:2px;margin-bottom:12px}
+  .testi-card p{color:var(--gray-300);font-size:14.5px;line-height:1.6;margin-bottom:18px}
+  .testi-author{display:flex;align-items:center;gap:10px;padding-top:14px;border-top:1px solid var(--border)}
+  .testi-avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--secondary));color:var(--bg);display:flex;align-items:center;justify-content:center;font-family:'Heebo';font-weight:900}
+  .testi-name{font-family:'Heebo';font-weight:800;color:var(--white);font-size:14px}
+  .testi-role{font-size:12px;color:var(--gray-500)}
+
+  /* ---------- GUILT ---------- */
+  .guilt{text-align:center;padding:90px 24px;background:var(--bg);position:relative}
+  .guilt::before{content:'';position:absolute;top:0;left:25%;width:500px;height:500px;background:rgba(21,166,224,0.08);border-radius:50%;filter:blur(200px)}
+  .guilt::after{content:'';position:absolute;bottom:0;right:25%;width:500px;height:500px;background:rgba(180,203,21,0.08);border-radius:50%;filter:blur(200px)}
+  .guilt h2{font-family:'Heebo';font-weight:900;font-size:clamp(34px,5.5vw,52px);line-height:1.1;color:var(--white);margin-bottom:20px;position:relative;z-index:2}
+  .guilt h2 em{font-style:normal;display:block;background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;font-size:1.2em;margin-top:8px}
+  .guilt p{font-size:18px;color:var(--gray-400);max-width:600px;margin:0 auto 12px;position:relative;z-index:2}
+  .guilt .em{color:var(--secondary);font-weight:900;font-family:'Heebo';margin-top:16px;font-size:20px;position:relative;z-index:2}
+
+  /* ---------- PRICING ---------- */
+  .price-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:36px}
+  @media (max-width:760px){.price-grid{grid-template-columns:1fr}}
+  .price-card{border-radius:28px;padding:36px 28px;position:relative;background:linear-gradient(135deg,var(--card),#111);border:1px solid var(--border)}
+  .price-card.regular{opacity:0.6}
+  .price-card.regular .num{text-decoration:line-through;color:var(--gray-500)}
+  .price-card.vip{background:linear-gradient(135deg,var(--card),#0E0E0E);border:2px solid rgba(21,166,224,0.4);box-shadow:0 0 40px rgba(21,166,224,0.2),0 24px 50px rgba(0,0,0,0.5);position:relative;overflow:hidden}
+  .price-card.vip::before{content:'';position:absolute;top:-100px;right:-80px;width:280px;height:280px;background:rgba(21,166,224,0.25);border-radius:50%;filter:blur(80px);pointer-events:none}
+  .price-card.vip::after{content:'';position:absolute;bottom:-80px;left:-60px;width:240px;height:240px;background:rgba(180,203,21,0.15);border-radius:50%;filter:blur(80px);pointer-events:none}
+  .price-card .label{font-family:'Heebo';font-weight:900;font-size:13px;letter-spacing:1.5px;color:var(--gray-400);margin-bottom:10px;position:relative;z-index:2}
+  .price-card.vip .label{color:var(--white)}
+  .price-card .pills{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;position:relative;z-index:2}
+  .price-card .pill-y{background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);padding:5px 12px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:11px}
+  .price-card .pill-w{background:rgba(255,255,255,0.08);border:1px solid var(--border);color:var(--white);padding:5px 12px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:11px}
+  .price-card .num-row{display:flex;align-items:baseline;gap:10px;margin-bottom:6px;position:relative;z-index:2}
+  .price-card .num{font-family:'Heebo';font-weight:900;font-size:64px;line-height:1;color:var(--white)}
+  .price-card.vip .num{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .price-card .nis{font-size:18px;font-weight:700;color:var(--gray-400)}
+  .price-card .saving{color:var(--secondary);font-family:'Heebo';font-weight:900;font-size:14px;margin-bottom:24px;display:block;position:relative;z-index:2}
+  .price-card ul{list-style:none;margin-bottom:24px;position:relative;z-index:2}
+  .price-card li{display:flex;gap:10px;align-items:flex-start;padding:6px 0;font-size:14.5px;color:var(--gray-300)}
+  .price-card li::before{content:'✓';color:var(--secondary);font-weight:900;flex:0 0 18px}
+  .price-card.regular li{color:var(--gray-500);text-decoration:line-through}
+  .price-card.regular li::before{color:var(--gray-500)}
+  .price-card.vip li{color:var(--white)}
+  .price-card .cta-card{position:relative;z-index:2;display:block;text-align:center;width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);font-family:'Heebo';font-weight:900;font-size:17px;padding:18px;border-radius:14px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(21,166,224,0.3);transition:transform 0.2s ease}
+  .price-card .cta-card:hover{transform:translateY(-2px)}
+  .price-card.regular .cta-card{background:rgba(255,255,255,0.05);color:var(--gray-500);cursor:not-allowed;box-shadow:none}
+
+  /* ---------- SAVINGS ---------- */
+  .savings-box{background:linear-gradient(135deg,var(--card),#111);border:1px solid var(--border);border-radius:28px;padding:36px;margin-top:30px;box-shadow:0 14px 40px rgba(0,0,0,0.5)}
+  .savings-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
+  .savings-row .l{font-size:14px;color:var(--gray-400);font-weight:800;font-family:'Heebo'}
+  .savings-row .r{font-family:'Heebo';font-weight:900;font-size:24px;color:var(--white)}
+  .slider{width:100%;height:10px;background:linear-gradient(90deg,var(--primary),var(--secondary));border-radius:99px;position:relative;margin-bottom:8px}
+  .slider .thumb{position:absolute;top:50%;right:35%;transform:translate(50%,-50%);width:28px;height:28px;border-radius:50%;background:var(--white);border:4px solid var(--primary);box-shadow:0 0 16px rgba(21,166,224,0.6)}
+  .slider-ticks{display:flex;justify-content:space-between;font-size:12px;color:var(--gray-500);margin-bottom:24px;direction:ltr}
+  .savings-result{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:22px}
+  @media (max-width:560px){.savings-result{grid-template-columns:1fr}}
+  .sav-card{background:rgba(255,255,255,0.04);border:1px solid var(--border);border-radius:18px;padding:18px}
+  .sav-card.hi{background:linear-gradient(135deg,rgba(21,166,224,0.15),rgba(180,203,21,0.15));border:1px solid rgba(21,166,224,0.4)}
+  .sav-card .sl{font-size:12px;font-weight:800;color:var(--gray-400);font-family:'Heebo';margin-bottom:6px}
+  .sav-card.hi .sl{color:var(--white)}
+  .sav-card .sn{font-family:'Heebo';font-weight:900;font-size:32px;color:var(--white)}
+  .sav-card.hi .sn{background:linear-gradient(135deg,var(--primary),var(--secondary));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+  .sav-card .nis-sm{font-size:14px;font-weight:700;color:var(--gray-400)}
+
+  /* ---------- RISK REVERSAL ---------- */
+  .risk-box{background:linear-gradient(135deg,var(--primary),var(--primary-dark));border-radius:32px;padding:54px 36px;text-align:center;color:var(--white);position:relative;overflow:hidden;box-shadow:0 30px 60px rgba(21,166,224,0.4)}
+  .risk-box::before{content:'';position:absolute;inset:0;background-image:radial-gradient(circle,rgba(255,255,255,0.15) 1.2px,transparent 1.2px);background-size:22px 22px;opacity:0.5;pointer-events:none}
+  .risk-box::after{content:'';position:absolute;top:50%;left:0;transform:translateY(-50%);width:160px;height:160px;background:rgba(180,203,21,0.4);border-radius:50%;filter:blur(60px);pointer-events:none}
+  .risk-shield{width:84px;height:84px;border-radius:24px;background:rgba(255,255,255,0.18);border:1px solid rgba(255,255,255,0.3);display:inline-flex;align-items:center;justify-content:center;font-size:38px;margin-bottom:18px;position:relative;z-index:2}
+  .risk-box h2{font-family:'Heebo';font-weight:900;font-size:clamp(32px,5vw,52px);line-height:1.05;margin-bottom:14px;position:relative;z-index:2;color:var(--white);letter-spacing:-1px}
+  .risk-box h2 .y{color:var(--secondary)}
+  .risk-box p{font-size:17px;color:rgba(255,255,255,0.9);max-width:560px;margin:0 auto 32px;position:relative;z-index:2;line-height:1.6}
+  .risk-pills{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;position:relative;z-index:2}
+  .risk-pill{background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);padding:12px 20px;border-radius:14px;font-family:'Heebo';font-weight:800;font-size:13px;display:inline-flex;gap:8px;align-items:center;color:var(--white)}
+  .risk-pill .v{color:var(--secondary);font-weight:900}
+
+  /* ---------- HOW IT WORKS ---------- */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:36px;position:relative}
+  @media (max-width:760px){.steps{grid-template-columns:1fr}}
+  .steps::before{content:'';position:absolute;top:36px;right:14%;left:14%;border-top:2px dashed var(--border);z-index:0}
+  @media (max-width:760px){.steps::before{display:none}}
+  .step{background:linear-gradient(135deg,var(--card),#111);border:1px solid var(--border);border-radius:22px;padding:28px 22px;text-align:center;position:relative;z-index:1;transition:transform 0.3s ease}
+  .step:hover{transform:translateY(-4px);border-color:rgba(21,166,224,0.3)}
+  .step .num{width:54px;height:54px;border-radius:16px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);font-family:'Heebo';font-weight:900;font-size:24px;display:inline-flex;align-items:center;justify-content:center;margin:0 auto 14px;box-shadow:0 0 24px rgba(21,166,224,0.4)}
+  .step .em{font-size:28px;display:block;margin-bottom:8px;opacity:0.7;color:var(--primary)}
+  .step h3{font-family:'Heebo';font-weight:900;font-size:19px;color:var(--white);margin-bottom:6px}
+  .step p{font-size:14px;color:var(--gray-400);line-height:1.55}
+
+  /* ---------- FORM ---------- */
+  .form-card{background:linear-gradient(135deg,var(--card),#111);border:1px solid var(--border);border-radius:32px;padding:40px;box-shadow:0 20px 50px rgba(0,0,0,0.5);margin-top:24px}
+  .progress{display:flex;gap:12px;justify-content:center;margin-bottom:30px;align-items:center}
+  .progress .s{display:flex;align-items:center;gap:8px}
+  .progress .s .d{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);font-family:'Heebo';font-weight:900;display:flex;align-items:center;justify-content:center;font-size:13px;box-shadow:0 0 12px rgba(21,166,224,0.4)}
+  .progress .s.off .d{background:rgba(255,255,255,0.05);color:var(--gray-500);box-shadow:none}
+  .progress .lbl{font-family:'Heebo';font-weight:800;font-size:13px;color:var(--white)}
+  .progress .s.off .lbl{color:var(--gray-500)}
+  .progress .line{width:30px;height:1px;background:var(--border)}
+  .fields{display:grid;gap:14px}
+  .field label{display:block;font-family:'Heebo';font-weight:800;font-size:12px;color:var(--gray-300);margin-bottom:6px}
+  .field input{width:100%;background:rgba(255,255,255,0.05);border:1.5px solid var(--border);border-radius:14px;padding:14px 16px;font-size:15px;color:var(--white);font-family:inherit}
+  .field input:focus{outline:none;border-color:var(--primary)}
+  .field input::placeholder{color:var(--gray-500)}
+  .form-cta{width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);border:none;font-family:'Heebo';font-weight:900;font-size:18px;padding:18px;border-radius:14px;cursor:pointer;margin-top:8px;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 0 24px rgba(21,166,224,0.3)}
+  .form-note{text-align:center;margin-top:14px;color:var(--gray-500);font-size:12px}
+
+  /* ---------- FOOTER ---------- */
+  footer{background:#050505;color:var(--white);padding:50px 24px 32px;border-top:1px solid var(--border)}
+  .foot-wrap{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.2fr 2fr;gap:32px;align-items:start}
+  @media (max-width:760px){.foot-wrap{grid-template-columns:1fr;text-align:center}}
+  .foot-brand{display:flex;align-items:flex-start;gap:14px}
+  @media (max-width:760px){.foot-brand{justify-content:center}}
+  .foot-info{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+  @media (max-width:760px){.foot-info{grid-template-columns:1fr;gap:18px}}
+  .foot-info .ic{font-size:18px;color:var(--primary);margin-bottom:6px}
+  .foot-info .ll{font-family:'Heebo';font-weight:800;font-size:12px;color:var(--gray-500);letter-spacing:1px;margin-bottom:2px}
+  .foot-info .vv{font-size:15px;color:var(--gray-300)}
+  .foot-bottom{max-width:1180px;margin:30px auto 0;padding-top:24px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:12px;color:var(--gray-500);flex-wrap:wrap;gap:10px}
+  @media (max-width:760px){.foot-bottom{justify-content:center;text-align:center}}
+
+  /* Floating accessibility */
+  .fab-access{position:fixed;bottom:20px;right:20px;width:50px;height:50px;border-radius:50%;background:var(--primary);color:var(--white);display:flex;align-items:center;justify-content:center;font-size:20px;box-shadow:0 12px 28px rgba(21,166,224,0.5);z-index:60}
+
+  /* SEC LABEL */
+  .sec-label{position:absolute;top:14px;right:14px;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--gray-400);padding:4px 10px;border-radius:99px;font-family:'Heebo';font-weight:900;font-size:10px;letter-spacing:1.5px;z-index:3}
+</style>
+</head>
+<body>
+<div class="noise"></div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-glow-1"></div>
+  <div class="hero-glow-2"></div>
+  <span class="sec-label">01 · HERO (DARK)</span>
+
+  <div class="hero-nav">
+    <div class="brand">
+      <div class="brand-logo">CKH</div>
+      <div class="brand-text">קאנטרי קריית השרון<small>מועדון הספורט של השכונה · מאז 2010</small></div>
+    </div>
+    <div class="nav-pills">
+      <span class="nav-pill"><span class="pdot"></span>פתוח גם בשבת</span>
+      <span class="nav-pill"><span class="pdot"></span>80 מקומות בלבד</span>
+    </div>
+  </div>
+
+  <div class="hero-center">
+    <div class="offer-badge">
+      <div class="offer-badge-inner">✨ פתיחת מכירות מנוי קיץ ✨</div>
+    </div>
+    <h1 class="hero-h">
+      <span class="row-top">יריד</span>
+      <span class="row-mega">המכירות</span>
+      <span class="row-bot">של הקיץ</span>
+    </h1>
+    <p class="hero-lede">
+      מנוי קיץ בקאנטרי קריית השרון הכולל <strong>בריכה חצי אולימפית</strong>,
+      כניסה ל<strong>מכון הכושר החדש!</strong> סאונה והפעלות לכל המשפחה.
+      <strong>פתוח גם בשבת.</strong>
+    </p>
+    <div class="info-bar">
+      <span>📅 <span class="accent">28.5</span> בלבד</span>
+      <span class="sep"></span>
+      <span>הטבה נוספת למצטרפים</span>
+    </div>
+    <div class="countdown">
+      <div class="cd-box"><div class="num">08</div><div class="lbl">ימים</div></div>
+      <div class="cd-box"><div class="num">14</div><div class="lbl">שעות</div></div>
+      <div class="cd-box"><div class="num">22</div><div class="lbl">דקות</div></div>
+      <div class="cd-box"><div class="num">07</div><div class="lbl">שניות</div></div>
+    </div>
+    <div>
+      <a class="cta-primary" href="#checkout">השאירו פרטים עכשיו →</a>
+      <span class="cta-sub">פחות מ-60 שניות · ללא חיוב מקדים</span>
+    </div>
+  </div>
+</section>
+
+<!-- SOCIAL PROOF -->
+<section class="social">
+  <span class="sec-label">02 · SOCIAL PROOF</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>למה אנחנו</span>
+      <h2 class="section-h">הקאנטרי של <span class="accent">קריית השרון</span></h2>
+    </div>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="icbox">📅</div>
+        <div class="num">15+</div>
+        <div class="lbl">שנים של פעילות בשכונה</div>
+        <div class="sub">מאז 2010 — חלק מהקהילה</div>
+      </div>
+      <div class="stat-card alt">
+        <div class="icbox">👨‍👩‍👧</div>
+        <div class="num">1,300+</div>
+        <div class="lbl">מנויים פעילים</div>
+        <div class="sub">משפחות שבחרו בנו לאורך השנים</div>
+      </div>
+      <div class="stat-card alt2">
+        <div class="icbox">💪</div>
+        <div class="num" style="font-size:36px">חדש!</div>
+        <div class="lbl">מכון כושר חדש ומשופץ</div>
+        <div class="sub">ציוד חדיש · מרחב נעים · מאמנים מקצועיים</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VOSS -->
+<section>
+  <span class="sec-label">03 · VOSS BLOCK</span>
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow lime"><span class="dot"></span>רגע לפני שאתם ממשיכים</span>
+      <h2 class="section-h">שלוש שאלות <span class="accent">קצרות</span></h2>
+    </div>
+    <div class="voss-list">
+      <div class="voss-q">
+        <div class="ic">💰</div>
+        <p>האם הגיוני לחכות שבוע נוסף ולשלם יותר על אותו מנוי בדיוק?</p>
+      </div>
+      <div class="voss-q alt">
+        <div class="ic">🏊</div>
+        <p>האם תרצו לסיים עוד קיץ ולגלות שכל השכונה נהנתה — חוץ מכם?</p>
+      </div>
+      <div class="voss-q">
+        <div class="ic">📅</div>
+        <p>האם נכון להחמיץ הטבה חד-פעמית בגלל היסוס של דקה אחת?</p>
+      </div>
+    </div>
+    <p class="voss-foot">אם עניתם <span class="em">״לא״</span> אפילו על אחת מהן — המקום שלכם כבר מחכה.</p>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section>
+  <span class="sec-label">04 · FACILITIES "NEW DAY"</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>המתחם שלנו</span>
+      <h2 class="section-h">ככה נראה <span class="accent">היום שלכם</span> אצלנו</h2>
+      <p class="section-sub">לא רק מתקנים. מקום אחד שבו אתם מורידים הילוך, מטעינים את עצמכם והילדים שמחים.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gal-cell big img1">
+        <div class="bg"></div>
+        <div class="overlay"><h3>בריכה חצי אולימפית</h3><p>מקורה ומחוממת לכל אורך השנה. 45 דקות בלבד בבוקר — וכל היום נראה אחרת.</p></div>
+        <span class="pin">⭐ הכי טוב</span>
+        <span class="dot"></span>
+      </div>
+      <div class="gal-cell img2"><div class="bg"></div><div class="overlay"><h3>מכון כושר חדש</h3><p>חדש ומשופץ — ציוד חדיש, מרחב נושם, מאמנים שמכירים אתכם בשם.</p></div><span class="dot"></span></div>
+      <div class="gal-cell img5"><div class="bg"></div><div class="overlay"><h3>בריכת פעוטות</h3><p>מים רדודים, שמש, צחוקים — והילדים הקטנים רגועים ושמחים.</p></div><span class="dot"></span></div>
+      <div class="gal-cell wide img4"><div class="bg"></div><div class="overlay"><h3>חוגי סטודיו</h3><p>יוגה, פילאטיס, ספינינג, זומבה ועוד. שעה אחת בשבוע שמחזירה את הראש.</p></div><span class="dot"></span></div>
+      <div class="gal-cell img6"><div class="bg"></div><div class="overlay"><h3>הפעלות לכל המשפחה</h3><p>שעה של תנועה, חברים וצחוק — הילד שלכם חוזר עייף מהסוג הטוב.</p></div><span class="dot"></span></div>
+      <div class="gal-cell img7"><div class="bg"></div><div class="overlay"><h3>קפיטריה</h3><p>קפה טוב, ארטיק לילדים, ארוחת בוקר עם נוף לבריכה.</p></div><span class="dot"></span></div>
+      <div class="gal-cell wide img8"><div class="bg"></div><div class="overlay"><h3>פינה ירוקה</h3><p>בלב השכונה, בין החורשה לבניינים. עיר אחת בחוץ — ועולם אחר מבפנים.</p></div><span class="dot"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON -->
+<section>
+  <span class="sec-label">05 · COMPARISON</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>למה דווקא כאן</span>
+      <h2 class="section-h"><span class="accent">אנחנו</span> מול האלטרנטיבות</h2>
+    </div>
+    <div class="compare-table">
+      <table>
+        <thead><tr><th></th><th class="us-col-h">קאנטרי קריית השרון</th><th>סטודיו שכונתי</th><th>פארק / בית</th><th>קאנטרי אחר</th></tr></thead>
+        <tbody>
+          <tr><td>בריכה חצי אולימפית מקורה</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>בריכת פעוטות גדולה</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td><td><span class="qq">?</span></td></tr>
+          <tr><td>מכון כושר חדש ומשופץ</td><td class="us-col"><span class="check">✓</span></td><td><span class="qq">?</span></td><td><span class="xx">✕</span></td><td><span class="qq">?</span></td></tr>
+          <tr><td>פתוח גם בשבת</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="check">✓</span></td><td><span class="xx">✕</span></td></tr>
+          <tr><td>סאונה יבשה</td><td class="us-col"><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td><td><span class="qq">?</span></td></tr>
+          <tr><td>חוגי סטודיו מגוונים</td><td class="us-col"><span class="check">✓</span></td><td><span class="check">✓</span></td><td><span class="xx">✕</span></td><td><span class="check">✓</span></td></tr>
+          <tr><td>אווירה משפחתית, יחס אישי</td><td class="us-col"><span class="check">✓</span></td><td><span class="qq">?</span></td><td><span class="xx">✕</span></td><td><span class="xx">✕</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section>
+  <span class="sec-label">06 · TESTIMONIALS</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow lime"><span class="dot"></span>המנויים שלנו מספרים</span>
+      <h2 class="section-h"><span class="accent">1,300+</span> מנויים פעילים</h2>
+      <p class="section-sub">לא ביקשנו מהם להגיד את זה</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>אחרי שנים שניסיתי כל מיני מקומות, פה הילדים שלי מבקשים לבוא כל בוקר. הצוות מכיר את כולם בשם.</p>
+        <div class="testi-author"><div class="testi-avatar">מ</div><div><div class="testi-name">מיכל ק.</div><div class="testi-role">מנויה 4 שנים, אמא לשניים</div></div></div>
+      </div>
+      <div class="testi-card offset">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>השחייה בבוקר לפני העבודה הפכה למקום הכי שקט שיש לי ביום. הבריכה מקורה ומחוממת, אין תירוצים בחורף.</p>
+        <div class="testi-author"><div class="testi-avatar">א</div><div><div class="testi-name">אבי מ.</div><div class="testi-role">מנוי 6 שנים</div></div></div>
+      </div>
+      <div class="testi-card">
+        <div class="testi-quote">"</div>
+        <div class="testi-stars">★★★★★</div>
+        <p>מכון הכושר הכי לא מאיים שהייתי בו. אני לא ספורטאית, ופה הרגשתי בנוח מהיום הראשון.</p>
+        <div class="testi-author"><div class="testi-avatar">ל</div><div><div class="testi-name">ליאת ב.</div><div class="testi-role">מנויה שנתיים</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUILT -->
+<section class="guilt">
+  <span class="sec-label">07 · GUILT RELEASE</span>
+  <div class="container-narrow">
+    <span class="eyebrow"><span class="dot"></span>רגע של אמת</span>
+    <h2 style="margin-top:16px">כל קיץ אתם אומרים<em>״הקיץ הבא אני מתחיל״</em></h2>
+    <p>אנחנו יודעים. אנחנו לא שופטים. רוב האנשים שמצטרפים אלינו כבר אמרו את זה לעצמם פעמיים-שלוש.</p>
+    <p>אז הפעם הסרנו את כל התירוצים: מחיר נמוך במיוחד, מנוי מקוצר, ללא התחייבות שנתית.</p>
+    <p class="em">לא נשאר אף תירוץ. רק להחליט.</p>
+  </div>
+</section>
+
+<!-- PRICING -->
+<section>
+  <span class="sec-label">08 · PRICING</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow lime"><span class="dot"></span>המחיר</span>
+      <h2 class="section-h">רק ב-<span class="accent">28.5</span>: המחיר הכי טוב של הקיץ</h2>
+      <p class="section-sub">רוכשים מנוי עכשיו ונמנעים מעליית המחירים שנכנסת לתוקף</p>
+    </div>
+    <div class="price-grid">
+      <div class="price-card regular">
+        <div class="label">מחיר רגיל</div>
+        <div class="num-row"><span class="num">3,500</span><span class="nis">ש״ח</span></div>
+        <span class="saving" style="color:var(--gray-500)">לזוג + 1 ילד · מנוי קיץ</span>
+        <ul>
+          <li>מחיר רגיל ללא ההטבה</li>
+          <li>אותם מתקנים, אותם חוגים</li>
+          <li>ללא בונוס יום היריד</li>
+          <li>ללא קיבוע מחיר</li>
+        </ul>
+        <button class="cta-card">מחיר רגיל — לא רלוונטי ב-28.5</button>
+      </div>
+      <div class="price-card vip">
+        <div class="pills"><span class="pill-y">👑 מחיר יום היריד</span><span class="pill-w">ללא התחייבות</span></div>
+        <div class="label">מנוי קיץ · זוג + 1 ילד</div>
+        <div class="num-row"><span class="num">3,150</span><span class="nis">ש״ח</span></div>
+        <span class="saving">חיסכון 350 ש״ח · במקום 3,500</span>
+        <ul>
+          <li>כניסה חופשית לבריכה ולמכון הכושר החדש</li>
+          <li>כל חוגי הסטודיו ללא הגבלה</li>
+          <li>בריכת פעוטות + הפעלות למשפחה</li>
+          <li>סאונה ושימוש בכל המתקנים</li>
+          <li>מחיר נעול לכל הקיץ — ללא העלאות</li>
+          <li>פתוח גם בשבת</li>
+        </ul>
+        <button class="cta-card">אני רוצה את המחיר הזה</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SAVINGS -->
+<section>
+  <span class="sec-label">09 · FAMILY TIME CALCULATOR</span>
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow lime"><span class="dot"></span>מחשבון בילוי משפחתי</span>
+      <h2 class="section-h">תזיזו את הסליידר וראו כמה<br><span class="accent">שעות בילוי משפחתי</span> מחכות לכם</h2>
+    </div>
+    <div class="savings-box">
+      <div class="savings-row"><span class="l">כמה פעמים בשבוע אתם מתכננים להגיע?</span><span class="r">3 ביקורים</span></div>
+      <div class="slider"><div class="thumb"></div></div>
+      <div class="slider-ticks"><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span></div>
+      <div class="savings-result">
+        <div class="sav-card"><div class="sl">ביקורים לכל הקיץ</div><div class="sn">39 <span class="nis-sm">ימי הנאה</span></div></div>
+        <div class="sav-card hi"><div class="sl">⏱ שעות בילוי משפחתי</div><div class="sn">97 <span class="nis-sm">שעות בקיץ</span></div></div>
+      </div>
+      <button class="cta-card" style="width:100%;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:var(--white);font-family:'Heebo';font-weight:900;font-size:17px;padding:18px;border-radius:14px;border:none;cursor:pointer;box-shadow:0 12px 30px rgba(21,166,224,0.3)">אני רוצה 97 שעות בילוי משפחתי →</button>
+    </div>
+  </div>
+</section>
+
+<!-- RISK -->
+<section>
+  <span class="sec-label">10 · RISK REVERSAL</span>
+  <div class="container-narrow">
+    <div class="risk-box">
+      <div class="risk-shield">🛡️</div>
+      <h2>אפס סיכון.<br><span class="y">אפס חששות.</span> רק הזדמנות.</h2>
+      <p>לא בטוחים? לא בא לכם להתחייב? אנחנו מבינים — לכן הכנו רשת ביטחון מלאה.</p>
+      <div class="risk-pills">
+        <span class="risk-pill"><span class="v">✓</span>מנוי מקוצר</span>
+        <span class="risk-pill"><span class="v">✓</span>ללא התחייבות שנתית</span>
+        <span class="risk-pill"><span class="v">✓</span>אין דמי הרשמה נסתרים</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section>
+  <span class="sec-label">11 · HOW IT WORKS</span>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow"><span class="dot"></span>ככה זה עובד</span>
+      <h2 class="section-h"><span class="accent">3 שלבים</span> להתחיל את הקיץ</h2>
+    </div>
+    <div class="steps">
+      <div class="step"><div class="num">1</div><span class="em">📝</span><h3>ממלאים פרטים</h3><p>שם, טלפון, מייל — שלוש שורות, פחות מדקה.</p></div>
+      <div class="step"><div class="num">2</div><span class="em">📞</span><h3>נרשמים ליריד</h3><p>נציג מהקאנטרי יחזור אליכם לתיאום קצר ויאשר את ההגעה ליריד.</p></div>
+      <div class="step"><div class="num">3</div><span class="em">🏊</span><h3>מתחילים לבלות</h3><p>ביום היריד — בוחרים את המסלול, סוגרים את המנוי, ומתחילים את הקיץ.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- FORM -->
+<section id="checkout">
+  <span class="sec-label">12 · CHECKOUT</span>
+  <div class="container-narrow">
+    <div class="section-head">
+      <span class="eyebrow lime"><span class="dot"></span>הרשמה</span>
+      <h2 class="section-h">עכשיו זה <span class="accent">תורכם</span></h2>
+      <p class="section-sub">פחות מ-60 שניות. כבר היום בבריכה.</p>
+    </div>
+    <div class="form-card">
+      <div class="progress">
+        <div class="s"><div class="d">1</div><span class="lbl">פרטים</span></div>
+        <div class="line"></div>
+        <div class="s off"><div class="d">2</div><span class="lbl">תיאום</span></div>
+        <div class="line"></div>
+        <div class="s off"><div class="d">3</div><span class="lbl">יריד</span></div>
+      </div>
+      <div class="fields">
+        <div class="field"><label>שם מלא</label><input type="text" placeholder="ישראלה ישראלי"></div>
+        <div class="field"><label>טלפון</label><input type="tel" placeholder="050-1234567" dir="ltr"></div>
+        <div class="field"><label>מייל (לא חובה)</label><input type="email" placeholder="you@example.com" dir="ltr"></div>
+        <button class="form-cta">השאירו פרטים ←</button>
+        <p class="form-note">הפרטים שלכם מוצפנים ולא מועברים לאף גורם מסחרי.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-wrap">
+    <div class="foot-brand">
+      <div class="brand-logo">CKH</div>
+      <div>
+        <div style="font-family:'Heebo';font-weight:900;font-size:16px;color:var(--white)">קאנטרי קריית השרון</div>
+        <div style="font-size:12px;color:var(--gray-500);margin-top:4px">מועדון הספורט של השכונה — מאז 2010</div>
+      </div>
+    </div>
+    <div class="foot-info">
+      <div><div class="ic">📍</div><div class="ll">כתובת</div><div class="vv">קריית השרון, נתניה</div></div>
+      <div><div class="ic">📞</div><div class="ll">טלפון</div><div class="vv" dir="ltr">09-000-0000</div></div>
+      <div><div class="ic">🕐</div><div class="ll">שעות פעילות</div><div class="vv">06:00–22:00 · כולל שבת</div></div>
+    </div>
+  </div>
+  <div class="foot-bottom">
+    <div>© 2026 קאנטרי קריית השרון. כל הזכויות שמורות.</div>
+    <div style="display:flex;gap:18px">תקנון · פרטיות · נגישות</div>
+  </div>
+</footer>
+
+<div class="fab-access">♿</div>
+</body>
+</html>
