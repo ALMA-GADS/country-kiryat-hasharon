@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { supabaseAdmin, isSupabaseConfigured } from "@/lib/supabase";
+import { supabase, isSupabaseConfigured } from "@/lib/supabase";
 
 export async function POST(req: Request) {
   try {
@@ -7,6 +7,7 @@ export async function POST(req: Request) {
     const name = String(body?.name || "").trim();
     const phone = String(body?.phone || "").replace(/[-\s]/g, "");
     const email = String(body?.email || "").trim();
+    const source = String(body?.source || "landing-summer-2026").trim();
 
     if (!name || !/^0\d{8,9}$/.test(phone)) {
       return NextResponse.json(
@@ -15,26 +16,27 @@ export async function POST(req: Request) {
       );
     }
 
-    if (!isSupabaseConfigured || !supabaseAdmin) {
+    if (!isSupabaseConfigured || !supabase) {
       console.warn("[checkout] Supabase not configured — lead not persisted", {
         name,
         phone,
         email,
+        source,
       });
       return NextResponse.json({ ok: true, queued: true });
     }
 
-    const { data, error } = await supabaseAdmin
+    // Insert without returning the row — anon role has no SELECT grant
+    // (intentional, so the publishable key can't be used to read existing leads).
+    const { error } = await supabase
       .from("leads")
       .insert({
         name,
         phone,
         email: email || null,
-        source: "landing-summer-2026",
+        source,
         status: "new",
-      })
-      .select("id")
-      .single();
+      });
 
     if (error) {
       console.error("[checkout] supabase insert error", error);
@@ -44,7 +46,7 @@ export async function POST(req: Request) {
       );
     }
 
-    return NextResponse.json({ ok: true, id: data?.id });
+    return NextResponse.json({ ok: true });
   } catch (err) {
     console.error("[checkout] error", err);
     return NextResponse.json(
