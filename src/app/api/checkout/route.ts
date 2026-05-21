@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { supabase, isSupabaseConfigured } from "@/lib/supabase";
+import { sendLeadEmail } from "@/lib/email";
 
 export async function POST(req: Request) {
   try {
@@ -23,28 +24,31 @@ export async function POST(req: Request) {
         email,
         source,
       });
-      return NextResponse.json({ ok: true, queued: true });
+    } else {
+      // Insert without returning the row — anon role has no SELECT grant.
+      const { error } = await supabase
+        .from("leads")
+        .insert({
+          name,
+          phone,
+          email: email || null,
+          source,
+          status: "new",
+        });
+
+      if (error) {
+        console.error("[checkout] supabase insert error", error);
+        return NextResponse.json(
+          { ok: false, error: "שמירה נכשלה" },
+          { status: 500 }
+        );
+      }
     }
 
-    // Insert without returning the row — anon role has no SELECT grant
-    // (intentional, so the publishable key can't be used to read existing leads).
-    const { error } = await supabase
-      .from("leads")
-      .insert({
-        name,
-        phone,
-        email: email || null,
-        source,
-        status: "new",
-      });
-
-    if (error) {
-      console.error("[checkout] supabase insert error", error);
-      return NextResponse.json(
-        { ok: false, error: "שמירה נכשלה" },
-        { status: 500 }
-      );
-    }
+    // Fire-and-forget email notification — never block the user response on this.
+    sendLeadEmail({ name, phone, email, source }).catch((err) =>
+      console.error("[checkout] email send failed", err)
+    );
 
     return NextResponse.json({ ok: true });
   } catch (err) {

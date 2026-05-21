@@ -10,13 +10,9 @@ import {
   Confetti,
   CircleNotch,
   ArrowLeft,
-  CreditCard,
 } from "@phosphor-icons/react/dist/ssr";
 
-type Step = "details" | "payment" | "success";
-
-const PAYMENT_URL =
-  process.env.NEXT_PUBLIC_PAYMENT_URL || "https://example.com/payment";
+type Step = "details" | "success";
 
 export default function CheckoutForm() {
   const [step, setStep] = useState<Step>("details");
@@ -49,7 +45,7 @@ export default function CheckoutForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, phone, email }),
       });
-      setStep("payment");
+      setStep("success");
     } catch {
       setError("משהו השתבש. נסו שוב או חייגו אלינו ישירות.");
     } finally {
@@ -57,17 +53,9 @@ export default function CheckoutForm() {
     }
   };
 
-  const goToPayment = () => {
-    setStep("success");
-    if (typeof window !== "undefined") {
-      window.open(PAYMENT_URL, "_blank", "noopener,noreferrer");
-    }
-  };
-
   const steps: { key: Step; label: string }[] = [
     { key: "details", label: "פרטים" },
-    { key: "payment", label: "תיאום" },
-    { key: "success", label: "יריד" },
+    { key: "success", label: "אישור" },
   ];
   const stepIndex = steps.findIndex((s) => s.key === step);
 
@@ -85,7 +73,7 @@ export default function CheckoutForm() {
         >
           <span className="inline-flex items-center gap-2 bg-[#B4CB15]/15 border border-[#B4CB15]/35 text-[#B4CB15] rounded-full px-4 py-1.5 text-xs font-bold font-[family-name:var(--font-heebo)] tracking-widest mb-4">
             <span className="w-1.5 h-1.5 rounded-full bg-[#B4CB15] animate-pulse" />
-            הרשמה
+            הרשמה ליריד
           </span>
           <h2 className="font-[family-name:var(--font-heebo)] font-black text-3xl sm:text-4xl md:text-5xl text-white leading-tight">
             עכשיו זה <span className="text-gradient-primary">תורכם</span>
@@ -93,7 +81,7 @@ export default function CheckoutForm() {
           <p className="text-gray-400 mt-3">נציג חוזר אליכם לתיאום ההגעה ליריד.</p>
         </motion.div>
 
-        <div className="flex justify-center items-center gap-2 mb-8">
+        <div className="flex justify-center items-center gap-3 mb-8">
           {steps.map((s, i) => (
             <div key={s.key} className="flex items-center gap-2">
               <div
@@ -114,7 +102,7 @@ export default function CheckoutForm() {
               </span>
               {i < steps.length - 1 && (
                 <div
-                  className={`w-6 sm:w-10 h-px ${
+                  className={`w-8 sm:w-12 h-px ${
                     i < stepIndex ? "bg-[#15A6E0]" : "bg-white/10"
                   }`}
                 />
@@ -185,7 +173,7 @@ export default function CheckoutForm() {
                     </>
                   ) : (
                     <>
-                      השאירו פרטים
+                      תפסו לי מקום ליריד
                       <ArrowLeft size={20} weight="bold" />
                     </>
                   )}
@@ -193,41 +181,6 @@ export default function CheckoutForm() {
 
                 <p className="text-center text-xs text-gray-500 mt-3">
                   הפרטים שלכם מוצפנים ולא מועברים לאף גורם מסחרי.
-                </p>
-              </motion.div>
-            )}
-
-            {step === "payment" && (
-              <motion.div
-                key="payment"
-                initial={{ opacity: 0, x: 30 }}
-                animate={{ opacity: 1, x: 0 }}
-                exit={{ opacity: 0, x: -30 }}
-                transition={{ duration: 0.3 }}
-                className="text-center"
-              >
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-[#B4CB15]/15 border border-[#B4CB15]/40 mb-5">
-                  <CheckCircle size={36} weight="duotone" className="text-[#B4CB15]" />
-                </div>
-                <h3 className="font-[family-name:var(--font-heebo)] font-black text-2xl sm:text-3xl text-white mb-3">
-                  קיבלנו את הפרטים, {name.split(" ")[0]}!
-                </h3>
-                <p className="text-gray-400 mb-7 leading-relaxed">
-                  נציג מהקאנטרי יחזור אליכם תוך 24 שעות לתיאום קצר ואישור ההגעה ליריד.
-                  <br />
-                  אם תרצו להזמין מקום מראש לתשלום המיועד — לחצו כאן.
-                </p>
-                <motion.button
-                  onClick={goToPayment}
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  className="cta-glow inline-flex items-center justify-center gap-2 bg-gradient-to-r from-[#15A6E0] to-[#0E80AE] hover:from-[#45BCE8] hover:to-[#15A6E0] text-white font-[family-name:var(--font-heebo)] font-bold text-base sm:text-lg py-4 px-10 rounded-2xl transition-all duration-300"
-                >
-                  <CreditCard size={22} weight="duotone" />
-                  לתשלום מאובטח מראש
-                </motion.button>
-                <p className="text-xs text-gray-500 mt-4">
-                  סכום: 3,150 ש״ח · ללא התחייבות
                 </p>
               </motion.div>
             )}
@@ -249,24 +202,36 @@ export default function CheckoutForm() {
                   <Confetti size={42} weight="fill" className="text-white" />
                 </motion.div>
                 <h3 className="font-[family-name:var(--font-heebo)] font-black text-2xl sm:text-3xl text-white mb-3">
-                  ברוכים הבאים למשפחה!
+                  קיבלנו את הפרטים, {name.split(" ")[0]}!
                 </h3>
                 <p className="text-gray-300 mb-5 leading-relaxed">
-                  שלחנו אישור למייל ולוואטסאפ. <br />
-                  נתראה ביום היריד — קאנטרי קריית השרון, נתניה.
+                  נציג מהקאנטרי יחזור אליכם תוך 24 שעות לתיאום קצר ואישור ההגעה ליריד ב-28.5.
                 </p>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-right space-y-2">
                   <div className="flex justify-between text-sm">
-                    <span className="text-gray-400">המנוי:</span>
-                    <span className="text-white">מנוי קיץ · 3 חודשים</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
-                    <span className="text-gray-400">סכום (לדוגמה):</span>
-                    <span className="text-[#B4CB15] font-bold">3,150 ש״ח</span>
-                  </div>
-                  <div className="flex justify-between text-sm">
                     <span className="text-gray-400">תאריך היריד:</span>
-                    <span className="text-white">28.5 · 06:00–22:00</span>
+                    <span className="text-white font-bold">יום חמישי · 28.5</span>
+                  </div>
+                  <div className="flex items-start justify-between text-sm">
+                    <span className="text-gray-400">כתובת:</span>
+                    <span className="text-white">המורן 7, קריית השרון, נתניה</span>
+                  </div>
+                  <div className="flex items-start justify-between text-sm">
+                    <span className="text-gray-400">לבירורים:</span>
+                    <a
+                      href="tel:+97298616222"
+                      dir="ltr"
+                      className="text-[#15A6E0] hover:text-[#45BCE8] font-semibold transition-colors"
+                    >
+                      09-861-6222
+                    </a>
+                  </div>
+                  <div className="flex items-center justify-between text-sm pt-2 border-t border-white/5">
+                    <span className="text-gray-400">בונוס יום היריד:</span>
+                    <span className="text-[#B4CB15] font-bold flex items-center gap-1">
+                      <CheckCircle size={14} weight="fill" />
+                      שמרנו לכם את המחיר המיוחד
+                    </span>
                   </div>
                 </div>
               </motion.div>
