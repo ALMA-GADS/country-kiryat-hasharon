@@ -45,8 +45,8 @@ export async function POST(req: Request) {
       }
     }
 
-    // Fire-and-forget email notification — never block the user response on this.
-    sendLeadEmail({ name, phone, email, source }).catch((err) =>
+    // Await email — Vercel terminates the function after response, so fire-and-forget is dropped.
+    await sendLeadEmail({ name, phone, email, source }).catch((err) =>
       console.error("[checkout] email send failed", err)
     );
 
