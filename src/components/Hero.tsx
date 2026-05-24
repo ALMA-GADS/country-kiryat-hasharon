@@ -67,9 +67,9 @@ export default function Hero() {
           >
             <CalendarBlank size={20} weight="duotone" className="text-[#15A6E0]" />
             <span className="text-white font-[family-name:var(--font-heebo)] font-bold text-sm sm:text-base">
-              ההטבה נסגרת בסיום היום של ה-
-              <span className="text-[#B4CB15] text-lg mx-1">28</span>
-              לחודש
+              יריד המכירות:{" "}
+              <span className="text-[#B4CB15] text-lg mx-1">27–28.5</span>
+              · רביעי–חמישי
             </span>
           </motion.div>
 

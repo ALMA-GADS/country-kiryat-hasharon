@@ -27,7 +27,7 @@ export async function sendLeadEmail(lead: LeadEmailPayload) {
     <div style="background:linear-gradient(135deg,#15A6E0,#B4CB15);padding:28px 28px 32px;color:#fff">
       <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;opacity:0.9;text-transform:uppercase">ליד חדש</div>
       <div style="font-size:24px;font-weight:900;margin-top:4px">קאנטרי קריית השרון</div>
-      <div style="font-size:14px;margin-top:6px;opacity:0.9">פתיחת מכירות מנוי קיץ 2026 · יריד 28.5</div>
+      <div style="font-size:14px;margin-top:6px;opacity:0.9">פתיחת מכירות מנוי קיץ 2026 · יריד 27–28.5</div>
     </div>
     <div style="padding:28px">
       <table style="width:100%;border-collapse:collapse;font-size:15px">

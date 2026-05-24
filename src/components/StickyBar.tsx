@@ -34,7 +34,7 @@ export default function StickyBar() {
               </div>
               <div className="min-w-0">
                 <div className="text-white text-xs sm:text-sm font-[family-name:var(--font-heebo)] font-bold truncate">
-                  יריד המכירות של הקיץ — 28.5 בלבד
+                  יריד המכירות של הקיץ — 27–28.5 · רביעי–חמישי
                 </div>
                 <div className="text-gray-400 text-[11px] sm:text-xs truncate">
                   3,150 ש״ח · חיסכון 350 ש״ח · ללא התחייבות

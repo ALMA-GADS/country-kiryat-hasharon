@@ -205,12 +205,12 @@ export default function CheckoutForm() {
                   קיבלנו את הפרטים, {name.split(" ")[0]}!
                 </h3>
                 <p className="text-gray-300 mb-5 leading-relaxed">
-                  נציג מהקאנטרי יחזור אליכם תוך 24 שעות לתיאום קצר ואישור ההגעה ליריד ב-28.5.
+                  נציג מהקאנטרי יחזור אליכם תוך 24 שעות לתיאום קצר ואישור ההגעה ליריד ב-27–28.5.
                 </p>
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-right space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">תאריך היריד:</span>
-                    <span className="text-white font-bold">יום חמישי · 28.5</span>
+                    <span className="text-white font-bold">רביעי–חמישי · 27–28.5</span>
                   </div>
                   <div className="flex items-start justify-between text-sm">
                     <span className="text-gray-400">כתובת:</span>

@@ -40,7 +40,7 @@ export default function PricingTable() {
             המחיר
           </span>
           <h2 className="font-[family-name:var(--font-heebo)] font-black text-3xl sm:text-4xl md:text-5xl text-white">
-            רק ב-<span className="text-gradient-primary">28.5</span>: המחיר הכי טוב של הקיץ
+            רק ב-<span className="text-gradient-primary">27–28.5</span>: המחיר הכי טוב של הקיץ
           </h2>
           <p className="text-gray-400 mt-4">
             רוכשים מנוי עכשיו ונמנעים מעליית המחירים שנכנסת לתוקף
@@ -86,7 +86,7 @@ export default function PricingTable() {
                 disabled
                 className="w-full py-3 rounded-2xl bg-white/5 text-gray-500 font-[family-name:var(--font-heebo)] font-bold text-sm cursor-not-allowed"
               >
-                מחיר רגיל — לא רלוונטי ב-28.5
+                מחיר רגיל — לא רלוונטי ב-27–28.5
               </button>
             </div>
           </motion.div>
