@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { CaretDown, ShieldCheck, CalendarBlank } from "@phosphor-icons/react/dist/ssr";
 import Countdown from "./Countdown";
 
-const TARGET_DATE = "2026-05-28T23:59:00+03:00";
+const TARGET_DATE = "2026-05-31T21:00:00+03:00";
 
 export default function Hero() {
   const scrollToForm = () => {
@@ -68,8 +68,8 @@ export default function Hero() {
             <CalendarBlank size={20} weight="duotone" className="text-[#15A6E0]" />
             <span className="text-white font-[family-name:var(--font-heebo)] font-bold text-sm sm:text-base">
               יריד המכירות:{" "}
-              <span className="text-[#B4CB15] text-lg mx-1">27–28.5</span>
-              · רביעי–חמישי
+              <span className="text-[#B4CB15] text-lg mx-1">עד 31.5</span>
+              · יום ראשון, 21:00
             </span>
           </motion.div>
 
