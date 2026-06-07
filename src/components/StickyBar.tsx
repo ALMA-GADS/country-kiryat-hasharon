@@ -34,7 +34,7 @@ export default function StickyBar() {
               </div>
               <div className="min-w-0">
                 <div className="text-white text-xs sm:text-sm font-[family-name:var(--font-heebo)] font-bold truncate">
-                  יריד המכירות של הקיץ — עד 31.5 · יום ראשון 21:00
+                  הפנינג מכירות 999 ₪ — יום רביעי · 10.6.26 · עד 21:00
                 </div>
                 <div className="text-gray-400 text-[11px] sm:text-xs truncate">
                   999 ₪ לקיץ · 249 ₪/חודש אח״כ · ביטול ב-30 יום

@@ -210,7 +210,7 @@ export default function CheckoutForm() {
                 <div className="bg-white/5 border border-white/10 rounded-2xl p-5 text-right space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">תאריך היריד:</span>
-                    <span className="text-white font-bold">יום ראשון · 31.5 · עד 21:00</span>
+                    <span className="text-white font-bold">יום רביעי · 10.6.26 · עד 21:00</span>
                   </div>
                   <div className="flex items-start justify-between text-sm">
                     <span className="text-gray-400">כתובת:</span>
