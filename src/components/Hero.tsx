@@ -54,6 +54,9 @@ export default function Hero() {
             <span className="block text-white text-3xl sm:text-4xl md:text-5xl mt-1">
               למנוי קיץ!
             </span>
+            <span className="block text-white/60 text-xl sm:text-2xl md:text-3xl mt-1">
+              בקאנטרי קריית השרון
+            </span>
           </motion.h1>
 
           {/* Lede */}
