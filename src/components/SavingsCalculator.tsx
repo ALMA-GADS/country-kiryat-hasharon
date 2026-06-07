@@ -2,7 +2,7 @@
 
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Timer, ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { Timer, ArrowLeft, Tag } from "@phosphor-icons/react/dist/ssr";
 
 const HOURS_PER_VISIT = 2.5;
 const WEEKS_IN_SUMMER = 13;
@@ -71,7 +71,7 @@ export default function SavingsCalculator() {
             <span>7</span>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
             <div className="bg-white/5 border border-white/10 rounded-2xl p-5">
               <div className="text-gray-400 text-xs mb-2 font-[family-name:var(--font-heebo)]">
                 ביקורים לכל הקיץ
@@ -87,6 +87,15 @@ export default function SavingsCalculator() {
               </div>
               <div className="font-[family-name:var(--font-heebo)] font-black text-3xl text-gradient-primary counter-number">
                 {totalHours} <span className="text-base text-white/80">שעות בקיץ</span>
+              </div>
+            </div>
+            <div className="bg-gradient-to-br from-[#B4CB15]/15 to-[#15A6E0]/15 border border-[#B4CB15]/40 rounded-2xl p-5">
+              <div className="text-white text-xs mb-2 font-[family-name:var(--font-heebo)] flex items-center gap-1.5">
+                <Tag size={14} weight="duotone" className="text-[#B4CB15]" />
+                עלות לביקור (999 ₪)
+              </div>
+              <div className="font-[family-name:var(--font-heebo)] font-black text-3xl text-[#B4CB15] counter-number">
+                {Math.round(999 / totalVisits)} <span className="text-base text-white/80">₪ בלבד</span>
               </div>
             </div>
           </div>

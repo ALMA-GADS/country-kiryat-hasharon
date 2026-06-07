@@ -37,7 +37,7 @@ export default function StickyBar() {
                   יריד המכירות של הקיץ — עד 31.5 · יום ראשון 21:00
                 </div>
                 <div className="text-gray-400 text-[11px] sm:text-xs truncate">
-                  3,150 ש״ח · חיסכון 350 ש״ח · ללא התחייבות
+                  999 ₪ לקיץ · 249 ₪/חודש אח״כ · ביטול ב-30 יום
                 </div>
               </div>
             </div>

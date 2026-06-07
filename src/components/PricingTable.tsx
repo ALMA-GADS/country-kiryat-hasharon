@@ -4,10 +4,10 @@ import { motion } from "framer-motion";
 import { Check, Sparkle, Crown } from "@phosphor-icons/react/dist/ssr";
 
 const regularFeatures = [
-  "מחיר רגיל ללא ההטבה",
-  "אותם מתקנים, אותם חוגים",
-  "ללא בונוס יום היריד",
+  "מחיר רגיל — 330 ₪ לחודש",
+  "ללא מחיר כניסה מיוחד לקיץ",
   "ללא קיבוע מחיר",
+  "ללא בונוס יריד",
 ];
 
 const vipFeatures = [
@@ -15,7 +15,7 @@ const vipFeatures = [
   "כל חוגי הסטודיו ללא הגבלה",
   "בריכת פעוטות + הפעלות למשפחה",
   "סאונה ושימוש בכל המתקנים",
-  "מחיר נעול לכל הקיץ — ללא העלאות",
+  "ביטול בהודעה של 30 יום — ללא קנסות",
   "פתוח גם בשבת",
 ];
 
@@ -40,14 +40,11 @@ export default function PricingTable() {
             המחיר
           </span>
           <h2 className="font-[family-name:var(--font-heebo)] font-black text-3xl sm:text-4xl md:text-5xl text-white">
-            רק ביריד המכירות — <span className="text-gradient-primary">עד 31.5</span>: המחיר הכי טוב של הקיץ
+            כניסה לקיץ ב-<span className="text-gradient-primary">999 ₪</span> — ואחר כך 249 ₪/חודש
           </h2>
           <p className="text-gray-400 mt-4">
-            רוכשים מנוי עכשיו ונמנעים מעליית המחירים שנכנסת לתוקף
+            לעומת מחיר חודשי רגיל של 330 ₪ · חיסכון 81 ₪ לחודש · ביטול בהודעה של 30 יום
           </p>
-          <div className="inline-block mt-5 px-5 py-2 bg-[#15A6E0]/10 border border-dashed border-[#15A6E0]/40 rounded-full text-sm font-[family-name:var(--font-heebo)] font-bold text-white">
-            לדוגמה בלבד: זוג + 1 ילד · יתר המחירים יוצגו ביום היריד
-          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -59,15 +56,15 @@ export default function PricingTable() {
             className="relative bg-gradient-to-br from-[#1A1A1A] to-[#111] border border-white/10 rounded-3xl p-7 sm:p-9 opacity-65"
           >
             <div className="text-gray-400 text-sm font-bold mb-3 font-[family-name:var(--font-heebo)] tracking-wide">
-              מחיר רגיל
+              מחיר חודשי רגיל
             </div>
             <div className="flex items-end gap-2 mb-1">
               <span className="font-[family-name:var(--font-heebo)] font-black text-5xl text-gray-400 line-through decoration-2 decoration-gray-600">
-                3,500
+                330
               </span>
-              <span className="text-gray-500 text-base mb-2">ש״ח</span>
+              <span className="text-gray-500 text-base mb-2">₪/חודש</span>
             </div>
-            <div className="text-gray-500 text-sm mb-7">לזוג + 1 ילד · מנוי קיץ</div>
+            <div className="text-gray-500 text-sm mb-7">ללא הטבת יריד המכירות</div>
 
             <ul className="space-y-3">
               {regularFeatures.map((f, i) => (
@@ -111,24 +108,27 @@ export default function PricingTable() {
                 </div>
                 <div className="inline-flex items-center gap-1.5 bg-[#B4CB15]/15 border border-[#B4CB15]/40 rounded-full px-3 py-1">
                   <span className="text-[#B4CB15] text-xs font-bold font-[family-name:var(--font-heebo)]">
-                    ללא התחייבות
+                    חיסכון 81 ₪/חודש
                   </span>
                 </div>
               </div>
 
               <div className="text-white text-sm font-bold mb-3 font-[family-name:var(--font-heebo)] tracking-wide">
-                מנוי קיץ · זוג + 1 ילד
+                קיץ שלם + מנוי שוטף
               </div>
 
               <div className="flex items-end gap-2 mb-1">
                 <span className="font-[family-name:var(--font-heebo)] font-black text-6xl sm:text-7xl text-gradient-primary">
-                  3,150
+                  999
                 </span>
-                <span className="text-gray-300 text-base mb-3">ש״ח</span>
+                <span className="text-gray-300 text-base mb-3">₪</span>
               </div>
+              <div className="text-gray-400 text-sm mb-2">4 חודשי קיץ · כולל הכל</div>
               <div className="flex items-center gap-2 mb-7">
-                <span className="text-gray-500 text-sm line-through">3,500 ש״ח</span>
-                <span className="text-[#B4CB15] text-sm font-bold">חיסכון 350 ש״ח</span>
+                <span className="font-[family-name:var(--font-heebo)] font-bold text-white text-base">
+                  ואחר כך — 249 ₪/חודש בלבד
+                </span>
+                <span className="text-gray-500 text-sm line-through">330 ₪</span>
               </div>
 
               <ul className="space-y-3 mb-8">
@@ -170,7 +170,7 @@ export default function PricingTable() {
         </div>
 
         <p className="text-center text-gray-500 text-xs sm:text-sm mt-6 italic">
-          * יתר ההרכבים (יחיד · זוג · משפחה מורחבת) — המחירים יוצגו ביום היריד.
+          * ביטול בהודעה של 30 יום מראש בכל עת לאחר 4 חודשי הקיץ.
         </p>
       </div>
     </section>

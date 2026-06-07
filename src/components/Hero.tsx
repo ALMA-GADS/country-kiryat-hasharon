@@ -51,10 +51,10 @@ export default function Hero() {
             transition={{ duration: 0.6, delay: 0.5 }}
             className="text-base sm:text-lg md:text-xl text-gray-300 max-w-2xl mx-auto mb-7 leading-relaxed"
           >
-            מנוי קיץ בקאנטרי קריית השרון הכולל{" "}
-            <span className="text-white font-semibold">בריכה חצי אולימפית</span>,
-            כניסה ל<span className="text-white font-semibold">מכון הכושר החדש!</span> סאונה
-            והפעלות לכל המשפחה.{" "}
+            <span className="text-white font-semibold">4 חודשי קיץ ב-999 ₪</span> — בריכה,
+            כושר, סאונה ופעילויות לכל המשפחה. אחר כך?{" "}
+            <span className="text-white font-semibold">249 ₪ לחודש בלבד</span>,{" "}
+            <span className="text-white font-semibold">ביטול בכל עת</span>.{" "}
             <span className="text-white font-semibold">פתוח גם בשבת.</span>
           </motion.p>
 
@@ -98,7 +98,7 @@ export default function Hero() {
             >
               <span className="relative z-10 flex items-center gap-2">
                 <ShieldCheck size={20} weight="duotone" />
-                רק ביריד המכירות — הנחה משמעותית לרכישת המנוי
+                תפסו מקום ביריד — 999 ₪ לקיץ
               </span>
               <div className="absolute inset-0 w-1/3 bg-gradient-to-r from-transparent via-white/30 to-transparent skew-x-[-20deg] -translate-x-full group-hover:translate-x-[400%] transition-transform duration-1000" />
             </motion.button>

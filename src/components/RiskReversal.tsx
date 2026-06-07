@@ -4,8 +4,8 @@ import { motion } from "framer-motion";
 import { ShieldCheck, Check } from "@phosphor-icons/react/dist/ssr";
 
 const guarantees = [
-  "מנוי מקוצר",
-  "ללא התחייבות שנתית",
+  "999 ₪ לכל הקיץ",
+  "ביטול בהודעה של 30 יום",
   "אין דמי הרשמה נסתרים",
 ];
 
