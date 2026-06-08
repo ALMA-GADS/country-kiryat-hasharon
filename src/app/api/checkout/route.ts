@@ -37,11 +37,8 @@ export async function POST(req: Request) {
         });
 
       if (error) {
+        // Log but don't block — email notification is more critical than DB persistence.
         console.error("[checkout] supabase insert error", error);
-        return NextResponse.json(
-          { ok: false, error: "שמירה נכשלה" },
-          { status: 500 }
-        );
       }
     }
 
