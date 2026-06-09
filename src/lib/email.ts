@@ -3,8 +3,16 @@ import { Resend } from "resend";
 const resendApiKey = process.env.RESEND_API_KEY ?? "";
 const notifyEmail = process.env.LEAD_NOTIFICATION_EMAIL ?? "";
 // Use onboarding@resend.dev until alma-ads.co.il domain is verified in Resend.
-// Switch to process.env.LEAD_FROM_EMAIL once domain verification is complete.
+// TODO: Switch back to process.env.LEAD_FROM_EMAIL after DNS records are added to Cloudflare:
+//   1. TXT resend._domainkey  → p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQDEhYs9+6P+I0vhi0hSeIyZloVYx3OSlVyu+zbEvPUQlbECU62Fo0plZelwWMh7BfstAAOYpy4gRm1mCC+21bTNKBcX1NHsVv6ss2nfmx8+4m7tGSweVY+tIN2XJKsSXxczrjK55UuMSEzm/asTy+Puh3Yx4J2+Be8GqFvTxTNIOwIDAQAB
+//   2. MX  send               → feedback-smtp.eu-west-1.amazonses.com (priority 10)
+//   3. TXT send               → v=spf1 include:amazonses.com ~all
 const fromEmail = "Country Kiryat HaSharon <onboarding@resend.dev>";
+
+// Resend test-mode restriction: without a verified domain, can only send TO the account owner.
+// Using alma.ads2010@gmail.com until alma-ads.co.il is verified.
+// TODO: revert to process.env.LEAD_NOTIFICATION_EMAIL after domain verification.
+const effectiveNotifyEmail = "alma.ads2010@gmail.com";
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 export const isEmailConfigured = Boolean(resendApiKey && notifyEmail);
@@ -58,11 +66,11 @@ export async function sendLeadEmail(lead: LeadEmailPayload) {
   try {
     const { data, error } = await resend.emails.send({
       from: fromEmail,
-      to: [notifyEmail],
+      to: [effectiveNotifyEmail],
       subject,
       html,
       text,
-      replyTo: lead.email || undefined,
+      replyTo: lead.email || notifyEmail || undefined,
     });
     if (error) {
       console.error("[email] resend error", error);
