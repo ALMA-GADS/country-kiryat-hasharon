@@ -2,7 +2,9 @@ import { Resend } from "resend";
 
 const resendApiKey = process.env.RESEND_API_KEY ?? "";
 const notifyEmail = process.env.LEAD_NOTIFICATION_EMAIL ?? "";
-const fromEmail = process.env.LEAD_FROM_EMAIL || "Country Kiryat HaSharon <onboarding@resend.dev>";
+// Use onboarding@resend.dev until alma-ads.co.il domain is verified in Resend.
+// Switch to process.env.LEAD_FROM_EMAIL once domain verification is complete.
+const fromEmail = "Country Kiryat HaSharon <onboarding@resend.dev>";
 
 export const resend = resendApiKey ? new Resend(resendApiKey) : null;
 export const isEmailConfigured = Boolean(resendApiKey && notifyEmail);
