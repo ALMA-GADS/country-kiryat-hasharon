@@ -53,12 +53,13 @@ git push origin main
 ואחרי ~90 שניות ודא שהפריסה הצליחה ושהדף חי:
 ```bash
 P="C:/Users/USER/Downloads/Cursor/country-kiryat-hasharon"
-curl -s "https://api.github.com/repos/ALMA-GADS/country-kiryat-hasharon/commits/$(git -C "$P" rev-parse HEAD)/status" \
-  | python -c "import sys,json; d=json.load(sys.stdin); print('vercel deploy:', d.get('state'))"
-curl -s -o /dev/null -w "prod: %{http_code}\n" https://country-kiryat-hasharon.vercel.app/
+PROD=$(grep -m1 -o 'PROD_URL=[^ `]*' "$P/MEMORY.md" | cut -d= -f2)
+REPO=$(git -C "$P" remote get-url origin | sed -E 's#.*github.com[:/]##; s#\.git$##')
+gh api "repos/$REPO/commits/$(git -C "$P" rev-parse HEAD)/status" --jq '"vercel deploy: " + .state'
+curl -s -o /dev/null -w "prod ($PROD): %{http_code}\n" "$PROD/"
 ```
 push נדחה? `git pull --rebase origin main` → בנייה → push. **לעולם לא `--force`.**
-**לעולם לא `vercel` CLI** — הקישור המקומי מצביע על הפרויקט הכפול (K-01).
+**פריסה = push בלבד** — לא `vercel --prod` כל עוד `.vercel/project.json` מצביע על הכפול (K-01).
 
 ### שלב ה׳ — דוח קצר
 ```markdown

@@ -93,17 +93,19 @@ git push origin main
 ```
 - המחבר: `Niv <alma.ads2010@gmail.com>` (מוגדר מקומית בריפו) — לא לשנות.
 - push נדחה? `git pull --rebase origin main` → בנייה → push. **לעולם לא `--force`.**
-- **לעולם לא `vercel` CLI / `vercel --prod`** — הקישור המקומי מצביע על הפרויקט הכפול בחשבון האישי (K-01). Vercel של ALMA GADS בונה אוטומטית מכל push ל-main.
+- **פריסה = push בלבד.** לא `vercel --prod` כל עוד `.vercel/project.json` מצביע על הכפול (K-01). Vercel בונה אוטומטית מכל push ל-main.
 
 ### שלב ט׳ — אימות ייצור
-המתן ~90 שניות, ואז:
+המתן ~90 שניות, ואז (הכתובת נקראת מ-`PROD_URL=` ב-MEMORY.md, הריפו מ-`origin`):
 ```bash
 P="C:/Users/USER/Downloads/Cursor/country-kiryat-hasharon"
-curl -s "https://api.github.com/repos/ALMA-GADS/country-kiryat-hasharon/commits/$(git -C "$P" rev-parse HEAD)/status" \
-  | python -c "import sys,json; d=json.load(sys.stdin); print('vercel deploy:', d.get('state')); [print(' ', s.get('description'), s.get('target_url')) for s in d.get('statuses',[])]"
-curl -s -o /dev/null -w "prod: %{http_code}\n" https://country-kiryat-hasharon.vercel.app/
-curl -s https://country-kiryat-hasharon.vercel.app/ | grep -c "[טקסט-סמן מהשינוי של הסשן]"
+PROD=$(grep -m1 -o 'PROD_URL=[^ `]*' "$P/MEMORY.md" | cut -d= -f2)
+REPO=$(git -C "$P" remote get-url origin | sed -E 's#.*github.com[:/]##; s#\.git$##')
+gh api "repos/$REPO/commits/$(git -C "$P" rev-parse HEAD)/status" --jq '"vercel deploy: " + .state, (.statuses[] | "  " + .description + " " + .target_url)'
+curl -s -o /dev/null -w "prod ($PROD): %{http_code}\n" "$PROD/"
+curl -s "$PROD/" | grep -c "[טקסט-סמן מהשינוי של הסשן]"
 ```
+להמתנה בלי `sleep` חוזר: לולאת `until` ברקע (`run_in_background`) שבודקת את הסטטוס כל 10 שניות.
 - `pending` → המתן עוד דקה ובדוק שוב (עד ~4 דקות). `failure` → הסשן לא נסגר עד תיקון.
 - הדף חייב להחזיר 200 **ולהכיל את הטקסט-הסמן של השינוי** — אחרת השינוי לא באמת עלה.
 - אם הסשן נגע בטופס / API / מייל — ליד בדיקה אחד לייצור (`source: "session-N-smoke"`) ובדיקה שה-API החזיר `{ok:true}`. אישור הגעת המייל = שער-אדם של ניב.
@@ -138,5 +140,5 @@ MEMORY.md · PROJECT_STORY.txt · NIV_PROMPTS_IDEAS.md · SESSION.md
 4. **עדכן בדיוק 4 קבצי זיכרון.** CLAUDE.md מתעדכן רק אם השתנה כלל ברזל או חשבון.
 5. **תמיד שאל על plan-amendment.**
 6. **אל תשנה את מבנה SESSION.md ללא אישור** (סימון ✅ מותר).
-7. **הכל על ALMA GADS. אסור להשתמש ב-MCP של Vercel/Supabase לפרויקט הזה** — הם מחוברים לחשבונות האישיים.
+7. **חשבונות — לפי מפת החשבונות ב-CLAUDE.md** (מעבר לחשבונות הראשיים אושר 2026-10-03 ומבוצע בסשן 8; בסשן הזה MCP/CLI של החשבונות הראשיים מותרים ונדרשים). שינוי חשבון או כתובת = עדכון CLAUDE.md + השורות `PROD_URL=` / `SUPABASE_REF=` ב-MEMORY.md + הסקילים והמראה.
 8. **עברית בתקשורת, קמיטים באנגלית.**

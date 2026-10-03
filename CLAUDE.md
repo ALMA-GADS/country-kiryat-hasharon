@@ -14,7 +14,11 @@
 פתיחה: `/country-session-start` · אמצע סשן: `/country-checkpoint` · סגירה: `/country-session-end`.
 עבודה על main. קוד וקמיטים באנגלית, תקשורת ו-UI בעברית.
 
-## 🔑 מפת חשבונות — "הכל על ALMA GADS"
+## 🔁 מעבר מאושר לחשבונות הראשיים (2026-10-03) — מבוצע בסשן 8
+היעד: GitHub `almaads2010niv/country-kiryat-hasharon` (פרטי) · Vercel `almaads-projects` → פרויקט `ks-lp26` = **https://ks-lp26.vercel.app** · Supabase הארגון הראשי `zputrrzeqeblnovmlowc` (Pro, פרויקט חדש $10/חודש — אושר) · Resend ללא שינוי.
+**בסשן 8 מותר ונדרש** להשתמש ב-MCP של Supabase/Vercel, ב-`gh` וב-Vercel CLI — מול החשבונות הראשיים בלבד. את הפרויקטים של ALMA GADS לא משנים (מלבד push ההפניה לריפו הישן) ולא מוחקים. בסוף סשן 8 הקובץ הזה, MEMORY.md והסקילים מתעדכנים למצב החדש.
+
+## 🔑 מפת חשבונות — המצב עד סשן 8 ("הכל על ALMA GADS")
 | שירות | חשבון נכון | הערה |
 | --- | --- | --- |
 | GitHub | `ALMA-GADS` (alma.gads2010@gmail.com) | דחיפה ב-SSH (מפתח `claude-ckh-deploy`). המשתמש המקומי של `gh` הוא חשבון אחר — לא לגעת |
@@ -38,9 +42,9 @@ Next.js 16.1 (App Router) · React 19 · TypeScript · Tailwind v4 · Framer Mot
 פלטה: רקע `#0A0A0A`, כחול `#15A6E0`, ליים `#B4CB15`, זהב קמפיין `#FFD700`.
 
 ## כללי ברזל
-- **לעולם לא `vercel` CLI מהתיקייה** — `.vercel/project.json` מצביע על הפרויקט הכפול בחשבון האישי (K-01). פריסה = push בלבד.
+- **לעולם לא `vercel` CLI לפריסה מהתיקייה כל עוד `.vercel/project.json` מצביע על הכפול** (K-01) — בסשן 8 הקישור נמחק ומקושר מחדש ל-`ks-lp26`. פריסה = push בלבד.
 - **push ל-main = שינוי בדף חי מיד.** אין staging. בנייה ירוקה לפני כל push.
-- **אסור להשתמש ב-MCP של Vercel/Supabase לפרויקט הזה.** פעולות בדשבורדים של ALMA GADS = דרך הדפדפן של ניב (אינקוגניטו) או שער-אדם.
+- **עד סשן 8: לא להשתמש ב-MCP של Vercel/Supabase מול הפרויקט החי** (הוא ב-ALMA GADS). בסשן 8 — מותר ונדרש מול החשבונות הראשיים (ראה "מעבר מאושר").
 - **סודות לעולם לא בקוד/גיט/קבצי זיכרון** — הריפו ציבורי. רק `.env.local` (מוחרג) ו-Vercel env.
 - **אין מידע אישי של לידים בקבצי הזיכרון** — רק ספירות ותאריכים. ייצוא לידים — לקובץ מחוץ לריפו.
 - **שינוי מבצע = מעבר על כל הדף** (Hero, StickyBar, PricingTable, SavingsCalculator, RiskReversal, HowItWorks, CheckoutForm, ExitIntent, תבנית המייל) — ראה "מפת הדף" ב-MEMORY.md.
